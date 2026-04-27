@@ -10,7 +10,9 @@ export const PERSONAL_INFO = {
   location: "Brasília - DF",
   phone: "+55 (61) 98182-0906",
   email: "leonccunha@hotmail.com",
-};export const PROJECTS = [
+};
+
+export const PROJECTS = [
   {
     id: 1,
     title: "MEI Pro: Gestão e Vendas",
@@ -57,14 +59,58 @@ export const PERSONAL_INFO = {
   },
   {
     id: 2,
-    title: "Galactic Empire: Idle",
-    description: "Simulador espacial viciante onde você constrói seu império intergaláctico através de estratégias de clique e automação de recursos.",
+    title: "Galactic Empire: Idle Clicker",
+    description: "Simulador espacial viciante onde você constrói seu império intergaláctico através de estratégias de clique e automação de recursos. Conquiste as estrelas!",
     tags: ["Game", "Idle", "Sci-Fi"],
     link: "https://play.google.com/store/apps/details?id=com.galactic.empire",
     image: "/screenshots/playstore_galactic.png",
     downloads: "10+",
     rating: "N/A",
     category: "Games"
+  },
+  {
+    id: 5,
+    title: "Garagem HotDeck: Galeria",
+    description: "Colecione, negocie e descubra carros icônicos em uma galeria digital única. O paraíso dos colecionadores de Hot Wheels e miniaturas raras.",
+    tags: ["Game", "Coleção", "Carros"],
+    link: "https://play.google.com/store/apps/details?id=com.zm.zmprojectgaleria",
+    image: "/screenshots/playstore_hotdeck.png",
+    downloads: "50+",
+    rating: "N/A",
+    category: "Games"
+  },
+  {
+    id: 7,
+    title: "Guia do Técnico ZM",
+    description: "O guia de bancada definitivo para reparar PCs, celulares, impressoras e videogames. Tudo que um técnico precisa em um só app.",
+    tags: ["Tools", "Tecnologia", "Repair"],
+    link: "https://play.google.com/store/apps/details?id=com.zmstore.guiadotecnico",
+    image: "https://play-lh.googleusercontent.com/Y6d_JTJpB2M4X8DgKP5QMj6ZaRJ_Kzy_HHBjGluOm4WfFLUqG3cFX0-2D6kp8-jFZA=w1052-h592",
+    downloads: "100+",
+    rating: "N/A",
+    category: "Tools"
+  },
+  {
+    id: 8,
+    title: "ZM Guia Remédio",
+    description: "Reconhecimento visual de medicamentos com câmera. Guia completo de saúde com posologia, alertas e interações medicamentosas. Sua saúde em um clique.",
+    tags: ["Saúde", "Tools", "Medical"],
+    link: "https://play.google.com/store/apps/details?id=com.zmstore.projectr",
+    image: "https://play-lh.googleusercontent.com/oAf72xUJCriIdBD7jbkqCLaBX7D3Ny7WXPW7nfrHBCFdpD1yY0y6cAV7e-yDAY3DgA=w1052-h592",
+    downloads: "50+",
+    rating: "N/A",
+    category: "Health"
+  },
+  {
+    id: 9,
+    title: "ZM Quanto Gastei no Rolê?",
+    description: "Seu copiloto financeiro para noites inesquecíveis. Controle seus gastos em baladas, bares e eventos em tempo real. Saiba exatamente quanto você gastou.",
+    tags: ["Finanças", "Social", "Utility"],
+    link: "https://play.google.com/store/apps/details?id=com.quantogastei.rolejava",
+    image: "https://play-lh.googleusercontent.com/qV5JOelr7QiYZxVJCMR3b7hxT1vW3PzAuPxD5FRV-JHf2kPY8PBcFlniZDjGCFKj4w=w1052-h592",
+    downloads: "100+",
+    rating: "N/A",
+    category: "Finance"
   }
 ];
 
@@ -91,7 +137,7 @@ export const COMPANIES = [
     description: "Estúdio de criação de aplicativos mobile e jogos para Android, com milhares de downloads na Google Play Store.",
     fullDescription: "Focada em solucionar problemas cotidianos e proporcionar entretenimento, a ZM Store Desenvolvimentos já lançou diversos títulos de sucesso, somando milhares de downloads globais. Nossa arquitetura é pautada em performance e UX.",
     icon: "Smartphone",
-    highlights: ["+25k Downloads totais", "Foco em User Experience", "9+ Apps Publicados"],
+    highlights: ["+3k Downloads totais", "Foco em User Experience", "9 Apps Publicados"],
     image: "/screenshots/zm_store_apps.png",
     links: [
       { name: "Google Play", url: "https://play.google.com/store/apps/developer?id=ZM+Store+desenvolvimentos" }
