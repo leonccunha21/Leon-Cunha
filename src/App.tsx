@@ -468,20 +468,6 @@ const ProjectsPage = () => {
         ))}
       </div>
 
-      <section className="mb-24">
-        <div className="p-8 lg:p-12 bg-indigo-600 rounded-[2.5rem] text-white flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="text-center md:text-left">
-            <h3 className="text-2xl font-bold mb-2">Gostou de algum aplicativo?</h3>
-            <p className="text-indigo-100 opacity-80">Podemos criar algo exclusivo para o seu modelo de negócio.</p>
-          </div>
-          <button 
-            onClick={() => window.open(`https://wa.me/${PERSONAL_INFO.phone.replace(/\D/g,'')}`, '_blank')}
-            className="px-8 py-4 bg-white text-indigo-600 rounded-2xl font-bold hover:bg-slate-900 hover:text-white transition-all shadow-xl shadow-black/10"
-          >
-            Falar com Desenvolvedor
-          </button>
-        </div>
-      </section>
     </div>
   );
 };
@@ -557,23 +543,6 @@ const AboutPage = () => {
         </div>
       </div>
 
-      <section className="mb-24">
-        <div className="p-8 lg:p-12 bg-slate-900 border border-slate-800 rounded-[2.5rem] text-white flex flex-col md:flex-row items-center justify-between gap-12 overflow-hidden relative">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2"></div>
-          <div className="relative z-10 text-center md:text-left">
-            <h3 className="text-3xl font-bold mb-4 tracking-tight">Interessado em minha colaboração?</h3>
-            <p className="text-slate-400 text-lg">Estou disponível para novos desafios e projetos de alta escala.</p>
-          </div>
-          <div className="flex gap-4 relative z-10 w-full md:w-auto">
-            <button 
-              onClick={() => window.open(`https://wa.me/${PERSONAL_INFO.phone.replace(/\D/g,'')}`, '_blank')}
-              className="flex-1 md:flex-none px-8 py-5 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-500 transition-all shadow-xl shadow-indigo-600/20"
-            >
-              Falar agora
-            </button>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };
@@ -637,134 +606,91 @@ const CompanyPage = () => {
               </div>
             </div>
 
-            <div className="grid lg:grid-cols-12 gap-16">
-              <div className="lg:col-span-8">
-                <div className="prose prose-slate max-w-none">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
-                    História e Propósito
+            <div>
+              <div className="prose prose-slate max-w-none">
+                <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                  História e Propósito
+                  <div className="h-px flex-1 bg-slate-100"></div>
+                </h3>
+                <p className="text-slate-600 leading-relaxed text-xl mb-12">
+                  {company.fullDescription}
+                </p>
+              </div>
+              
+              {isDev && (
+                <div className="mt-16">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-10 flex items-center gap-3">
+                    Catálogo de Produtos Digitais
                     <div className="h-px flex-1 bg-slate-100"></div>
                   </h3>
-                  <p className="text-slate-600 leading-relaxed text-xl mb-12">
-                    {company.fullDescription}
-                  </p>
-                </div>
-                
-                {isDev && (
-                  <div className="mt-16">
-                    <h3 className="text-2xl font-bold text-slate-900 mb-10 flex items-center gap-3">
-                      Catálogo de Produtos Digitais
-                      <div className="h-px flex-1 bg-slate-100"></div>
-                    </h3>
-                    <div className="grid sm:grid-cols-2 gap-8">
-                      {PROJECTS.map((app) => (
-                        <div key={app.id} className="group relative">
-                          <div className="aspect-video bg-slate-100 rounded-3xl mb-6 overflow-hidden shadow-sm ring-1 ring-slate-100">
-                            <img src={app.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={app.title} />
-                          </div>
-                          <h4 className="text-xl font-bold text-slate-900 mb-2">{app.title}</h4>
-                          <p className="text-sm text-slate-500 mb-6 line-clamp-2 leading-relaxed">{app.description}</p>
-                          <a 
-                            href={app.link} 
-                            target="_blank" 
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-2xl text-xs font-bold uppercase tracking-widest hover:bg-indigo-600 transition-all shadow-lg shadow-slate-900/10"
-                          >
-                            Google Play <ExternalLink size={14} />
-                          </a>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {PROJECTS.map((app) => (
+                      <div key={app.id} className="group relative">
+                        <div className="aspect-video bg-slate-100 rounded-3xl mb-6 overflow-hidden shadow-sm ring-1 ring-slate-100">
+                          <img src={app.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={app.title} />
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {company.projects && (
-                  <div className="mt-16">
-                    <h3 className="text-2xl font-bold text-slate-900 mb-10 flex items-center gap-3">
-                      Sites Desenvolvidos
-                      <div className="h-px flex-1 bg-slate-100"></div>
-                    </h3>
-                    <div className="grid sm:grid-cols-2 gap-8">
-                      {company.projects.map((p: any) => (
-                        <div key={p.name} className="group relative">
-                          <div className="aspect-video bg-slate-100 rounded-3xl mb-6 overflow-hidden shadow-sm ring-1 ring-slate-100">
-                            <img src={p.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={p.name} />
-                          </div>
-                          <h4 className="text-xl font-bold text-slate-900 mb-2">{p.name}</h4>
-                          <a 
-                            href={p.url} 
-                            target="_blank" 
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-2 text-indigo-600 text-sm font-bold hover:gap-3 transition-all"
-                          >
-                            Visitar Site <ArrowUpRight size={16} />
-                          </a>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="lg:col-span-4">
-                 <div className="p-8 lg:p-10 bg-slate-50 rounded-[2.5rem] border border-slate-100 sticky top-12">
-                    <h3 className="font-bold text-slate-900 text-lg mb-8 uppercase tracking-widest">Contato Profissional</h3>
-                <div className="space-y-4 mb-8">
-                  {company.links?.map((link: any) => (
-                    <a 
-                      key={link.name}
-                      href={link.url} 
-                      target="_blank" 
-                      rel="noreferrer"
-                      className="flex items-center justify-between p-4 bg-indigo-600 text-white rounded-2xl hover:bg-slate-900 transition-all group shadow-lg shadow-indigo-600/20"
-                    >
-                      <span className="font-bold text-sm uppercase tracking-widest">{link.name}</span>
-                      <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </a>
-                  ))}
-
-                  <a href={`mailto:${PERSONAL_INFO.email}`} className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 hover:border-indigo-200 hover:shadow-md transition-all group">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                      <Mail size={18} />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">E-mail</p>
-                      <p className="text-sm font-semibold text-slate-900">{PERSONAL_INFO.email}</p>
-                    </div>
-                  </a>
-
-                  <a 
-                    href={`https://wa.me/${PERSONAL_INFO.phone.replace(/\D/g,'')}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 hover:border-indigo-200 hover:shadow-md transition-all group"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                      <MessageSquare size={18} />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">WhatsApp</p>
-                      <p className="text-sm font-semibold text-slate-900">{PERSONAL_INFO.phone}</p>
-                    </div>
-                  </a>
-
-                  <div className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600">
-                      <MapPin size={18} />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Localização</p>
-                      <p className="text-sm font-semibold text-slate-900">{PERSONAL_INFO.location}</p>
-                    </div>
+                        <h4 className="text-xl font-bold text-slate-900 mb-2">{app.title}</h4>
+                        <p className="text-sm text-slate-500 mb-6 line-clamp-2 leading-relaxed">{app.description}</p>
+                        <a 
+                          href={app.link} 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-2xl text-xs font-bold uppercase tracking-widest hover:bg-indigo-600 transition-all shadow-lg shadow-slate-900/10"
+                        >
+                          Google Play <ExternalLink size={14} />
+                        </a>
+                      </div>
+                    ))}
                   </div>
                 </div>
-                <button 
-                  onClick={() => window.open(`https://wa.me/${PERSONAL_INFO.phone.replace(/\D/g,'')}`, '_blank')}
-                  className="w-full py-5 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-600/20 active:scale-[0.98]"
-                >
-                  Solicitar Orçamento
-                </button>
+              )}
+
+              {company.projects && (
+                <div className="mt-16">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-10 flex items-center gap-3">
+                    Sites Desenvolvidos
+                    <div className="h-px flex-1 bg-slate-100"></div>
+                  </h3>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {company.projects.map((p: any) => (
+                      <div key={p.name} className="group relative">
+                        <div className="aspect-video bg-slate-100 rounded-3xl mb-6 overflow-hidden shadow-sm ring-1 ring-slate-100">
+                          <img src={p.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={p.name} />
+                        </div>
+                        <h4 className="text-xl font-bold text-slate-900 mb-2">{p.name}</h4>
+                        <a 
+                          href={p.url} 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 text-indigo-600 text-sm font-bold hover:gap-3 transition-all"
+                        >
+                          Visitar Site <ArrowUpRight size={16} />
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {company.links && (
+                 <div className="mt-24 pt-12 border-t border-slate-100 flex flex-col items-center">
+                    <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-8">Acesse agora</p>
+                    <div className="flex flex-wrap gap-4 justify-center">
+                      {company.links.map((link: any) => (
+                        <a 
+                          key={link.name}
+                          href={link.url} 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="flex items-center gap-4 px-10 py-5 bg-indigo-600 text-white rounded-2xl hover:bg-slate-900 transition-all group shadow-xl shadow-indigo-600/20"
+                        >
+                          <span className="font-bold uppercase tracking-widest">{link.name}</span>
+                          <ArrowUpRight size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        </a>
+                      ))}
+                    </div>
                  </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
