@@ -14,6 +14,7 @@ import {
   useLocation,
   useNavigate
 } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import { 
   Github, 
   Linkedin, 
@@ -35,7 +36,7 @@ import {
   ChevronRight,
   ArrowLeft
 } from "lucide-react";
-import { PROJECTS, EXPERIENCE, SOCIAL_LINKS, PERSONAL_INFO, COMPANIES, EDUCATION } from "./constants";
+import { PROJECTS, EXPERIENCE, SOCIAL_LINKS, PERSONAL_INFO, COMPANIES, EDUCATION, STATS, SKILLS, SERVICES } from "./constants";
 
 // --- Components ---
 
@@ -79,9 +80,9 @@ const Sidebar = () => {
             ZM
           </motion.div>
         </Link>
-        <h1 className="text-4xl font-bold tracking-tight mb-2">{PERSONAL_INFO.name}</h1>
-        <p className="text-indigo-400 font-medium mb-6 uppercase tracking-widest text-[10px]">{PERSONAL_INFO.role}</p>
-        <p className="text-slate-400 leading-relaxed text-sm mb-12">
+        <h1 className="text-4xl font-extrabold tracking-tight mb-2 leading-tight">{PERSONAL_INFO.name}</h1>
+        <p className="text-indigo-400 font-bold mb-6 uppercase tracking-[0.2em] text-[10px]">{PERSONAL_INFO.role}</p>
+        <p className="text-slate-400 leading-relaxed text-sm mb-12 font-medium opacity-80">
           {PERSONAL_INFO.bio}
         </p>
 
@@ -146,12 +147,71 @@ const Sidebar = () => {
         </div>
         <Link 
           to="/apps"
-          className="block w-full py-4 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-center text-sm font-semibold transition-all shadow-lg shadow-indigo-600/20 active:scale-95"
+          className="block w-full py-4 bg-indigo-600 hover:bg-white hover:text-indigo-600 rounded-2xl text-center text-sm font-bold transition-all shadow-xl shadow-indigo-600/20 active:scale-95 border border-transparent hover:border-indigo-600/20"
         >
           Minha Store
         </Link>
       </div>
     </aside>
+  );
+};
+
+const StatsSection = () => {
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-24">
+      {STATS.map((stat, i) => {
+        const Icon = stat.icon === "Download" ? Download : 
+                     stat.icon === "LayoutGrid" ? LayoutGrid :
+                     stat.icon === "BriefcaseBusiness" ? BriefcaseBusiness : Target;
+        return (
+          <motion.div
+            key={stat.label}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.1, type: "spring", stiffness: 100 }}
+            className="p-6 glass-card rounded-[2rem] hover:bg-white transition-all group overflow-hidden relative"
+          >
+            <div className="absolute top-0 right-0 w-16 h-16 bg-indigo-600/5 rounded-bl-[4rem] group-hover:scale-150 transition-transform duration-700" />
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+              <Icon size={20} />
+            </div>
+            <p className="text-3xl font-black text-slate-900 mb-1">{stat.value}</p>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">{stat.label}</p>
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+};
+
+const SkillsSection = () => {
+  return (
+    <div className="mb-24">
+      <div className="flex items-center gap-4 mb-10">
+        <h3 className="text-2xl font-black text-slate-900">Expertise Técnica</h3>
+        <div className="h-px flex-1 bg-slate-100" />
+      </div>
+      <div className="grid sm:grid-cols-2 gap-8">
+        {SKILLS.map((skill, i) => (
+          <div key={skill.name} className="space-y-3">
+            <div className="flex justify-between items-end">
+              <span className="text-sm font-bold text-slate-700 uppercase tracking-widest">{skill.name}</span>
+              <span className="text-xs font-black text-indigo-600">{skill.level}%</span>
+            </div>
+            <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+              <motion.div 
+                initial={{ width: 0 }}
+                whileInView={{ width: `${skill.level}%` }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, delay: i * 0.1, ease: "circOut" }}
+                className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
@@ -189,32 +249,40 @@ const ProjectCard = ({ project, index }: { project: any; index: number; key?: st
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
-      className="sleek-card p-4 group h-full flex flex-col"
+      className="sleek-card p-4 group h-full flex flex-col relative"
     >
-      <div className="aspect-video bg-slate-100 rounded-xl mb-4 overflow-hidden relative shadow-inner">
+      <div className="aspect-square bg-slate-100 rounded-2xl mb-5 overflow-hidden relative shadow-inner group-hover:shadow-2xl transition-all duration-500">
         <img 
           src={project.image} 
           alt={project.title}
           className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+           <div className="flex items-center gap-2 text-white text-[10px] font-bold uppercase tracking-widest translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+             Ver na PlayStore <ExternalLink size={12} />
+           </div>
+        </div>
         {project.downloads && (
-          <div className="absolute top-3 right-3 bg-white/95 backdrop-blur px-2 py-1 rounded-lg text-[9px] font-bold text-indigo-600 flex items-center gap-1 shadow-sm border border-slate-100">
-            <Download size={10} />
+          <div className="absolute top-4 left-4 glass-card px-3 py-1.5 rounded-xl text-[10px] font-bold text-slate-900 flex items-center gap-1.5 shadow-sm">
+            <Download size={12} className="text-indigo-600" />
             {project.downloads}
           </div>
         )}
       </div>
       <div className="px-1 flex-1 flex flex-col">
-        <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">
-          {project.title}
-        </h3>
-        <p className="text-xs text-slate-500 mb-6 leading-relaxed line-clamp-3 flex-1">
+        <div className="flex items-start justify-between mb-3">
+          <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-indigo-600 transition-colors leading-tight">
+            {project.title}
+          </h3>
+          <span className="text-[10px] font-black text-indigo-500 px-2 py-1 bg-indigo-50 rounded-lg">{project.rating}★</span>
+        </div>
+        <p className="text-xs text-slate-500 mb-6 leading-relaxed line-clamp-3 font-medium opacity-80">
           {project.description}
         </p>
-        <div className="flex flex-wrap gap-1 mt-auto">
-          {project.tags.slice(0, 3).map((tag: string) => (
-            <span key={tag} className="px-2 py-1 bg-slate-50 border border-slate-100 rounded-lg text-[9px] font-bold text-slate-400 flex items-center gap-1">
-              <span className="w-1 h-1 rounded-full bg-indigo-400" />
+        <div className="flex flex-wrap gap-1.5 mt-auto">
+          {project.tags.map((tag: string) => (
+            <span key={tag} className="px-2.5 py-1 bg-slate-100/50 border border-slate-200/50 rounded-lg text-[9px] font-bold text-slate-500 flex items-center gap-1.5 transition-colors group-hover:bg-white">
+              <span className="w-1 h-1 rounded-full bg-indigo-500" />
               {tag}
             </span>
           ))}
@@ -242,27 +310,29 @@ const HomePage = () => {
            animate={{ opacity: 1, y: 0 }}
            className="max-w-4xl"
         >
-          <span className="inline-block px-4 py-2 bg-indigo-50 text-indigo-600 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">Bem-vindo ao meu Portfólio</span>
-          <h2 className="text-5xl lg:text-7xl font-bold text-slate-900 tracking-tight leading-[1.1] mb-8">
-            Transformando ideias em <span className="text-indigo-600">experiências digitais</span> memoráveis.
+          <span className="inline-block px-4 py-2 bg-indigo-50 text-indigo-600 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-6 border border-indigo-100/50">Bem-vindo ao meu Portfólio</span>
+          <h2 className="text-5xl lg:text-8xl font-black text-slate-900 tracking-tighter leading-[0.95] mb-10">
+            Transformando ideias em <span className="premium-gradient-text">experiências digitais</span> memoráveis.
           </h2>
-          <p className="text-xl text-slate-500 leading-relaxed max-w-2xl">
+          <p className="text-xl text-slate-500 leading-relaxed max-w-2xl font-medium">
             Sou especialista no ecossistema mobile e e-commerce, com foco em resultados reais e tecnologia de ponta para o mercado de Brasília e além.
           </p>
         </motion.div>
       </section>
 
+      <StatsSection />
+
       {/* Featured Companies */}
       <section id="empresas" className="mb-24">
         <div className="flex items-center justify-between mb-10">
           <div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-1">Nossas Empresas</h3>
-            <p className="text-sm text-slate-500 uppercase tracking-widest font-medium">Ecossistema ZM</p>
+            <h3 className="text-2xl font-black text-slate-900 mb-1">Ecossistema ZM</h3>
+            <p className="text-sm text-slate-500 uppercase tracking-[0.2em] font-bold">Inovação & Varejo</p>
           </div>
           <div className="h-px flex-1 mx-8 bg-slate-100 hidden md:block"></div>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-8">
           {COMPANIES.map((company, i) => (
             <CompanyCard 
               key={company.name} 
@@ -270,6 +340,35 @@ const HomePage = () => {
               index={i} 
             />
           ))}
+        </div>
+      </section>
+
+      <SkillsSection />
+
+      {/* Services */}
+      <section className="mb-24">
+        <div className="grid md:grid-cols-3 gap-8">
+          {SERVICES.map((service, i) => {
+             const Icon = service.icon === "Smartphone" ? Smartphone :
+                          service.icon === "ShoppingBag" ? ShoppingBag : Target;
+             return (
+               <motion.div
+                 key={service.title}
+                 initial={{ opacity: 0, y: 20 }}
+                 whileInView={{ opacity: 1, y: 0 }}
+                 viewport={{ once: true }}
+                 transition={{ delay: i * 0.1 }}
+                 className="p-10 bg-slate-900 text-white rounded-[2.5rem] relative overflow-hidden group"
+               >
+                 <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-600/10 rounded-bl-full group-hover:scale-150 transition-transform duration-700" />
+                 <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-indigo-400 mb-8 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                   <Icon size={28} />
+                 </div>
+                 <h4 className="text-2xl font-black mb-4 tracking-tight">{service.title}</h4>
+                 <p className="text-slate-400 leading-relaxed font-medium">{service.description}</p>
+               </motion.div>
+             );
+          })}
         </div>
       </section>
 
@@ -403,22 +502,25 @@ const AboutPage = () => {
       <div className="grid lg:grid-cols-2 gap-16 mb-24">
         {/* Education */}
         <div>
-          <h3 className="text-2xl font-bold text-slate-900 mb-10 flex items-center gap-3">
+          <h3 className="text-2xl font-black text-slate-900 mb-10 flex items-center gap-3">
             <GraduationCap className="text-indigo-600" size={28} />
             Educação
           </h3>
-          <div className="space-y-6">
+          <div className="space-y-4">
             {EDUCATION.map((edu, i) => (
               <motion.div 
                 key={edu.title}
                 initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="p-8 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all relative overflow-hidden"
+                className="p-6 bg-white rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-indigo-500/5 transition-all group"
               >
-                <h4 className="font-bold text-slate-900 text-lg mb-1">{edu.title}</h4>
-                <p className="text-indigo-600 font-medium text-sm mb-4">{edu.institution}</p>
-                <span className="inline-block px-3 py-1 bg-slate-50 rounded-full text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                <div className="flex justify-between items-start mb-2">
+                  <h4 className="font-bold text-slate-900 text-lg group-hover:text-indigo-600 transition-colors">{edu.title}</h4>
+                </div>
+                <p className="text-indigo-600 font-bold text-xs mb-4 uppercase tracking-widest">{edu.institution}</p>
+                <span className="inline-block px-3 py-1 bg-slate-50 rounded-lg text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
                   {edu.period}
                 </span>
               </motion.div>
@@ -428,25 +530,27 @@ const AboutPage = () => {
 
         {/* Experience */}
         <div>
-          <h3 className="text-2xl font-bold text-slate-900 mb-10 flex items-center gap-3">
+          <h3 className="text-2xl font-black text-slate-900 mb-10 flex items-center gap-3">
             <BriefcaseBusiness className="text-indigo-600" size={28} />
             Experiência
           </h3>
-          <div className="space-y-6">
+          <div className="space-y-8 border-l-2 border-slate-100 ml-4 pl-8 relative">
             {EXPERIENCE.map((exp, i) => (
               <motion.div 
                 key={exp.company}
                 initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="p-8 bg-slate-50 rounded-3xl border border-transparent hover:border-slate-200 transition-all"
+                className="relative"
               >
-                <div className="flex justify-between items-start mb-4">
-                   <h4 className="font-bold text-slate-900 text-lg">{exp.role}</h4>
-                   <span className="text-[10px] text-indigo-600 font-bold bg-white px-3 py-1 rounded-full uppercase tracking-widest shadow-sm">{exp.period}</span>
+                <div className="absolute w-4 h-4 bg-indigo-600 rounded-full -left-[41px] top-1 border-4 border-white shadow-sm" />
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                   <h4 className="font-black text-slate-900 text-xl">{exp.role}</h4>
+                   <span className="text-[10px] text-indigo-600 font-black bg-indigo-50 px-3 py-1.5 rounded-full uppercase tracking-widest self-start sm:self-auto">{exp.period}</span>
                 </div>
-                <p className="text-sm text-slate-900 font-semibold mb-3">{exp.company}</p>
-                <p className="text-xs text-slate-500 leading-relaxed">{exp.description}</p>
+                <p className="text-sm text-indigo-600 font-bold mb-3 uppercase tracking-widest">{exp.company}</p>
+                <p className="text-sm text-slate-500 leading-relaxed font-medium opacity-80">{exp.description}</p>
               </motion.div>
             ))}
           </div>
@@ -572,12 +676,52 @@ const CompanyPage = () => {
                     </div>
                   </div>
                 )}
+
+                {company.projects && (
+                  <div className="mt-16">
+                    <h3 className="text-2xl font-bold text-slate-900 mb-10 flex items-center gap-3">
+                      Sites Desenvolvidos
+                      <div className="h-px flex-1 bg-slate-100"></div>
+                    </h3>
+                    <div className="grid sm:grid-cols-2 gap-8">
+                      {company.projects.map((p: any) => (
+                        <div key={p.name} className="group relative">
+                          <div className="aspect-video bg-slate-100 rounded-3xl mb-6 overflow-hidden shadow-sm ring-1 ring-slate-100">
+                            <img src={p.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={p.name} />
+                          </div>
+                          <h4 className="text-xl font-bold text-slate-900 mb-2">{p.name}</h4>
+                          <a 
+                            href={p.url} 
+                            target="_blank" 
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 text-indigo-600 text-sm font-bold hover:gap-3 transition-all"
+                          >
+                            Visitar Site <ArrowUpRight size={16} />
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="lg:col-span-4">
                  <div className="p-8 lg:p-10 bg-slate-50 rounded-[2.5rem] border border-slate-100 sticky top-12">
                     <h3 className="font-bold text-slate-900 text-lg mb-8 uppercase tracking-widest">Contato Profissional</h3>
                 <div className="space-y-4 mb-8">
+                  {company.links?.map((link: any) => (
+                    <a 
+                      key={link.name}
+                      href={link.url} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="flex items-center justify-between p-4 bg-indigo-600 text-white rounded-2xl hover:bg-slate-900 transition-all group shadow-lg shadow-indigo-600/20"
+                    >
+                      <span className="font-bold text-sm uppercase tracking-widest">{link.name}</span>
+                      <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </a>
+                  ))}
+
                   <a href={`mailto:${PERSONAL_INFO.email}`} className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 hover:border-indigo-200 hover:shadow-md transition-all group">
                     <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
                       <Mail size={18} />
@@ -636,7 +780,12 @@ export default function App() {
   return (
     <Router>
       <ScrollToHash />
-      <div className="flex flex-col lg:flex-row min-h-screen bg-slate-50 relative">
+      <Analytics />
+      <div className="flex flex-col lg:flex-row min-h-screen bg-slate-50 relative selection:bg-indigo-500 selection:text-white">
+        {/* Abstract Background Elements */}
+        <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-indigo-500/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+        <div className="fixed bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/5 blur-[120px] rounded-full translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+        
         <Sidebar />
         <Routes>
           <Route path="/" element={<HomePage />} />
