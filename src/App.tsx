@@ -903,10 +903,10 @@ const AboutPage = () => {
               </h1>
               <div className="space-y-6 text-lg text-slate-400 leading-relaxed max-w-3xl">
                 <p>
-                  Sou um desenvolvedor apaixonado por transformar problemas complexos em soluções digitais elegantes e escaláveis. Com foco em <span className="text-white font-bold">Android Nativo (Kotlin)</span> e <span className="text-white font-bold">Web Moderno (React)</span>, minha trajetória é marcada pelo empreendedorismo e pela entrega constante de valor através de software.
+                  Sou um desenvolvedor apaixonado por transformar problemas complexos em soluções digitais elegantes e escaláveis. Com foco em <span className="text-white font-bold">Android Nativo (Kotlin)</span>, <span className="text-white font-bold">Web Moderno (React)</span> e <span className="text-white font-bold">Inteligência Artificial</span>, minha trajetória é marcada pelo empreendedorismo e pela entrega constante de valor através de software.
                 </p>
                 <p>
-                  Como fundador da <span className="text-cyan-400 font-bold">ZM Store Desenvolvimentos</span>, publiquei 9 aplicativos na Google Play Store, alcançando a marca de mais de 15 mil downloads. Meu trabalho vai além do código: envolve a concepção do produto, design de experiência e estratégias de crescimento.
+                  Como fundador da <span className="text-cyan-400 font-bold">ZM Store Desenvolvimentos</span>, publiquei 9 aplicativos na Google Play Store, alcançando a marca de mais de 15 mil downloads. Recentemente, venho focando na <span className="text-white font-bold">integração de LLMs e automação com IA</span> para elevar a inteligência e eficiência dos produtos que desenvolvo.
                 </p>
                 <p>
                   Acredito na tecnologia como ferramenta de impacto real, seja automatizando processos para microempreendedores ou criando comunidades vibrantes para colecionadores.

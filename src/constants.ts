@@ -292,8 +292,8 @@ export const EXPERIENCE = [
     company: "ZM Store Desenvolvimentos",
     role: "Fundador & Android Developer",
     period: "2021 — Atual",
-    description: "Fundei e opero um estúdio de desenvolvimento Android indie. Responsável por 100% do ciclo de produto: concepção, design de UI/UX, desenvolvimento Kotlin/Java, integração Firebase, testes, publicação na Play Store e manutenção contínua. 9 apps ativos com +15k downloads acumulados. Principal projeto: Garagem HotDeck — app social para colecionadores com comunidade ativa.",
-    tech: ["Kotlin", "Java", "Firebase Auth", "Firestore", "Firebase FCM", "Room DB", "MVVM", "Jetpack Compose", "Retrofit", "Android Studio", "Google Play"]
+    description: "Fundei e opero um estúdio de desenvolvimento Android indie. Responsável por 100% do ciclo de produto: concepção, design de UI/UX, desenvolvimento Kotlin/Java, integração Firebase, testes, publicação na Play Store e manutenção contínua. 9 apps ativos com +15k downloads acumulados. Principal projeto: Garagem HotDeck — app social para colecionadores com comunidade ativa. Recentemente integrando IA generativa para automação de catálogo e moderação.",
+    tech: ["Kotlin", "Java", "Firebase Auth", "Firestore", "Firebase FCM", "Room DB", "MVVM", "Jetpack Compose", "Retrofit", "Google AI SDK", "LLM Integration", "Android Studio", "Google Play"]
   },
   {
     company: "ZM Digital",
@@ -401,6 +401,7 @@ export const SKILLS = [
   { name: "UI/UX Design (Figma)", level: 78, category: "Design" },
   { name: "Node.js / Express", level: 75, category: "Backend" },
   { name: "Git & GitHub", level: 90, category: "DevOps" },
+  { name: "IA / LLM (OpenAI, Google AI)", level: 85, category: "AI" },
 ];
 
 export const SERVICES = [
@@ -417,10 +418,10 @@ export const SERVICES = [
     tags: ["React", "Next.js", "SEO"]
   },
   {
-    title: "Consultoria Tech",
-    description: "Planejamento de produto, arquitetura de software e estratégia digital para startups e PMEs.",
-    icon: "Target",
-    tags: ["Produto", "Arquitetura", "Estratégia"]
+    title: "IA & Automação",
+    description: "Integração de Inteligência Artificial (LLMs, Visão Computacional) para criar apps inteligentes e fluxos automatizados.",
+    icon: "Cpu",
+    tags: ["OpenAI", "Google AI", "Automação"]
   }
 ];
 
