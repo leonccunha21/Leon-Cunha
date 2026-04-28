@@ -1194,22 +1194,8 @@ const AboutPage = () => {
 
 export default function App() {
   return (
-    <Router>
-      <ScrollToHash />
-      <div className="min-h-screen bg-[#080b12] text-slate-200">
-        <Navbar />
-        {/* Added pt-16 for desktop header and pb-16 for mobile bottom bar */}
-        <div className="pt-16 pb-[64px] md:pb-0">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/apps" element={<ProjectsPage />} />
-            <Route path="/sobre" element={<AboutPage />} />
-            <Route path="/empresa/:slug" element={<CompanyPage />} />
-            <Route path="/pedido-app" element={<OrderFormPage type="app" />} />
-            <Route path="/pedido-marketing" element={<OrderFormPage type="marketing" />} />
-          </Routes>
-        </div>
-      </div>
-    </Router>
+    <div style={{ background: '#080b12', color: 'white', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyCenter: 'center' }}>
+      <h1 style={{ fontSize: '3rem' }}>Sistema Leon Cunha Online</h1>
+    </div>
   );
 }
