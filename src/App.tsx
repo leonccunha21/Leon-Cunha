@@ -44,7 +44,8 @@ import {
   Menu,
   X,
   Home,
-  User
+  User,
+  Folder
 } from "lucide-react";
 import { useState } from "react";
 import { PROJECTS, EXPERIENCE, SOCIAL_LINKS, PERSONAL_INFO, COMPANIES, EDUCATION, STATS, SKILLS, SERVICES } from "./constants";
@@ -285,54 +286,45 @@ const SkillsSection = () => {
 const CompaniesSection = () => {
   return (
     <section className="mb-24">
-      <div className="flex items-center gap-4 mb-10">
-        <BriefcaseBusiness className="text-cyan-400" size={24} />
-        <h3 className="text-2xl font-black text-white font-mono uppercase">Ecossistema ZM</h3>
+      <div className="flex items-center gap-4 mb-8">
+        <Terminal className="text-cyan-400" size={24} />
+        <h3 className="text-2xl font-black text-white font-mono uppercase">DIR // Ecossistema ZM</h3>
         <div className="h-px flex-1 bg-gradient-to-r from-cyan-500/20 to-transparent" />
       </div>
       
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="flex flex-col gap-3 font-mono">
         {COMPANIES.map((company, i) => {
-          const Icon = company.icon === "ShoppingBag" ? ShoppingBag :
-                       company.icon === "Target" ? Target : Smartphone;
-          const mainLink = company.links?.[0]?.url || "#";
-          
           return (
             <motion.div
               key={company.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
             >
               <Link 
                 to={`/empresa/${company.slug}`}
-                className="glass-card flex flex-col h-full rounded-2xl border border-slate-800/50 hover:border-cyan-500/50 transition-all overflow-hidden group block"
+                className="group flex items-center justify-between p-4 rounded-xl bg-[#0d1117]/80 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-900/80 transition-all backdrop-blur-sm"
               >
-                <div className="p-6 flex-1 flex flex-col">
-                  <div className="flex justify-between items-start mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-110 group-hover:border-cyan-500/30 transition-all">
-                      <Icon size={24} />
-                    </div>
-                    <ChevronRight size={20} className="text-slate-600 group-hover:text-cyan-400 transition-colors" />
+                <div className="flex items-center gap-4">
+                  <div className="text-cyan-500/50 group-hover:text-cyan-400 transition-colors">
+                    <Folder size={20} />
                   </div>
-                  
-                  <h4 className="text-xl font-black text-white mb-1 group-hover:text-cyan-400 transition-colors">{company.name}</h4>
-                  <p className="text-[10px] font-mono text-cyan-500 font-bold uppercase tracking-widest mb-4">{company.type}</p>
-                  <p className="text-sm text-slate-400 flex-1 leading-relaxed">{company.description}</p>
-                  
-                  <div className="mt-6 space-y-2">
-                    {company.highlights.map(h => (
-                      <div key={h} className="flex items-center gap-2 text-xs font-mono text-slate-300">
-                        <ChevronRight size={12} className="text-cyan-500" /> {h}
-                      </div>
-                    ))}
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                    <span className="text-white font-bold text-base group-hover:text-cyan-400 transition-colors">
+                      {company.name}
+                    </span>
+                    <span className="text-xs text-slate-500">
+                      // {company.type}
+                    </span>
                   </div>
                 </div>
                 
-                <div className="px-6 py-4 border-t border-slate-800/50 bg-slate-900/30 text-[10px] font-bold font-mono text-cyan-500 uppercase tracking-widest flex items-center justify-between group-hover:bg-cyan-500/5 transition-all">
-                  <span>Conhecer Empresa_</span>
-                  <ArrowRight size={14} />
+                <div className="flex items-center gap-3">
+                   <span className="hidden sm:block text-[10px] text-cyan-500 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                     cd ./acessar
+                   </span>
+                   <ChevronRight size={16} className="text-slate-600 group-hover:text-cyan-400 transition-colors" />
                 </div>
               </Link>
             </motion.div>
