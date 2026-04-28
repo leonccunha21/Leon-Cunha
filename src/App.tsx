@@ -935,15 +935,31 @@ const HomePage = () => {
               Desenvolvedor Android Nativo & Full Stack. Especialista em criar soluções mobile escaláveis e ecossistemas digitais de alta performance.
             </p>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 mb-10">
               <Link to="/apps" className="btn-primary flex items-center gap-2">
                  Ver Projetos <ArrowRight size={18} />
               </Link>
               <Link to="/sobre" className="btn-outline">Conhecer Trajetória</Link>
             </div>
+
+            {/* Ecosystem Command Menu - Quick Access */}
+            <div className="flex flex-wrap gap-3">
+               {COMPANIES.map((company) => (
+                 <Link 
+                   key={company.id}
+                   to={`/empresa/${company.slug}`} 
+                   className="glass-card hover:bg-slate-800 flex items-center gap-2 px-5 py-3 rounded-xl text-white font-mono text-[11px] uppercase tracking-wider border border-slate-700 hover:border-cyan-500/50 transition-all group"
+                 >
+                   <Folder size={14} className="text-cyan-500/50 group-hover:text-cyan-400" />
+                   <span className="text-slate-500 group-hover:text-slate-300">cd ./</span>
+                   <span className="font-bold text-cyan-400 group-hover:text-cyan-300">{company.slug.replace(/-/g, '_')}</span>
+                 </Link>
+               ))}
+            </div>
           </motion.div>
         </section>
 
+        <CompaniesSection />
         <StatsSection />
         <ActivitySection />
         <SkillsSection />
