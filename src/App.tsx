@@ -433,13 +433,15 @@ const CompanyPage = () => {
                       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {section.items.map((item: any) => (
                           <a key={item.name} href={item.url} target="_blank" rel="noreferrer" className="group">
-                            <div className="glass-card p-4 rounded-xl border border-slate-800/50 hover:border-cyan-500/40 transition-all h-full">
-                              <div className="aspect-video rounded-lg overflow-hidden mb-4 bg-slate-900 border border-slate-800">
-                                <img src={item.image} alt={item.name} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all" />
-                              </div>
-                              <div className="flex items-center justify-between mb-1">
-                                <span className="font-black text-slate-200 group-hover:text-cyan-400 transition-colors">{item.name}</span>
-                                <ArrowUpRight size={14} className="text-slate-500 group-hover:text-cyan-400 transition-colors" />
+                            <div className="glass-card p-4 rounded-xl border border-slate-800/50 hover:border-cyan-500/40 transition-all h-full flex flex-col justify-between text-center">
+                              <div>
+                                <div className="aspect-video rounded-lg overflow-hidden mb-4 bg-slate-900 border border-slate-800">
+                                  <img src={item.image} alt={item.name} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all" />
+                                </div>
+                                <div className="flex items-center justify-center gap-2 mb-2">
+                                  <span className="font-black text-slate-200 group-hover:text-cyan-400 transition-colors">{item.name}</span>
+                                  <ArrowUpRight size={14} className="text-slate-500 group-hover:text-cyan-400 transition-colors" />
+                                </div>
                               </div>
                               <p className="text-[11px] text-slate-500 font-mono">{item.desc}</p>
                             </div>
@@ -453,13 +455,13 @@ const CompanyPage = () => {
                       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {section.items.map((item: any) => (
                           <a key={item.name} href={item.url} target="_blank" rel="noreferrer" className="group">
-                            <div className="glass-card p-5 rounded-xl border border-slate-800/50 hover:border-pink-500/40 transition-all flex items-start gap-4">
-                              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 border border-pink-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                                <Instagram size={18} className="text-pink-400" />
+                            <div className="glass-card p-6 rounded-xl border border-slate-800/50 hover:border-pink-500/40 transition-all flex flex-col items-center justify-center text-center h-full">
+                              <div className="w-12 h-12 mb-4 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 border border-pink-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                                <Instagram size={20} className="text-pink-400" />
                               </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center justify-between gap-2 mb-1">
-                                  <span className="font-black text-slate-200 group-hover:text-pink-400 transition-colors text-sm">{item.name}</span>
+                              <div className="w-full">
+                                <div className="flex items-center justify-center gap-2 mb-2">
+                                  <span className="font-black text-slate-200 group-hover:text-pink-400 transition-colors text-sm break-words">{item.name}</span>
                                   <ArrowUpRight size={12} className="text-slate-600 group-hover:text-pink-400 shrink-0 transition-colors" />
                                 </div>
                                 <p className="text-[11px] text-slate-500 leading-relaxed">{item.desc}</p>
@@ -474,13 +476,13 @@ const CompanyPage = () => {
                     {section.type === "services" && (
                       <div className="grid sm:grid-cols-2 gap-3">
                         {section.items.map((item: any) => (
-                          <div key={item.name} className="glass-card p-5 rounded-xl border border-slate-800/50 hover:border-purple-500/30 transition-all flex items-start gap-4 group">
-                            <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-110 transition-transform">
-                              <Target size={14} className="text-purple-400" />
+                          <div key={item.name} className="glass-card p-6 rounded-xl border border-slate-800/50 hover:border-purple-500/30 transition-all flex flex-col items-center justify-center text-center h-full group">
+                            <div className="w-10 h-10 mb-3 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                              <Target size={16} className="text-purple-400" />
                             </div>
-                            <div>
-                              <p className="font-black text-slate-200 text-sm mb-1 group-hover:text-purple-400 transition-colors">{item.name}</p>
-                              <p className="text-[11px] text-slate-500">{item.desc}</p>
+                            <div className="w-full">
+                              <p className="font-black text-slate-200 text-sm mb-2 group-hover:text-purple-400 transition-colors break-words">{item.name}</p>
+                              <p className="text-[11px] text-slate-500 leading-relaxed">{item.desc}</p>
                             </div>
                           </div>
                         ))}
@@ -499,11 +501,11 @@ const CompanyPage = () => {
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {company.projects.map((p: any) => (
                       <a key={p.name} href={p.url} target="_blank" rel="noreferrer" className="group">
-                        <div className="glass-card p-4 rounded-xl border border-slate-800/50 hover:border-cyan-500/30 transition-all">
+                        <div className="glass-card p-4 rounded-xl border border-slate-800/50 hover:border-cyan-500/30 transition-all h-full flex flex-col text-center">
                           <div className="aspect-video rounded-lg overflow-hidden mb-4 bg-slate-900 border border-slate-800">
                             <img src={p.image} alt={p.name} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all" />
                           </div>
-                          <div className="flex items-center justify-between">
+                          <div className="flex items-center justify-center gap-2 mt-auto">
                             <span className="font-bold text-slate-200 group-hover:text-cyan-400 transition-colors">{p.name}</span>
                             <ArrowUpRight size={14} className="text-slate-500" />
                           </div>
