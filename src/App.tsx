@@ -935,16 +935,29 @@ const HomePage = () => {
               </div>
             </div>
 
-            {/* Tech Buttons */}
-            <div className="flex flex-wrap gap-4">
-               <Link to="/apps" className="btn-primary flex items-center gap-2 font-mono text-xs uppercase tracking-wider group">
-                 <Terminal size={16} /> ./ver_projetos.sh
+            {/* Ecosystem Command Menu */}
+            <div className="flex flex-wrap gap-3">
+               {COMPANIES.map((company) => (
+                 <Link 
+                   key={company.id}
+                   to={`/empresa/${company.slug}`} 
+                   className="glass-card hover:bg-slate-800 flex items-center gap-2 px-5 py-3 rounded-xl text-white font-mono text-[11px] uppercase tracking-wider border border-slate-700 hover:border-cyan-500/50 transition-all group"
+                 >
+                   <Folder size={14} className="text-cyan-500/50 group-hover:text-cyan-400" />
+                   <span className="text-slate-400 group-hover:text-white">cd ./</span>
+                   <span className="font-bold">{company.slug.replace(/-/g, '_')}</span>
+                 </Link>
+               ))}
+               
+               <Link to="/sobre" className="glass-card hover:bg-slate-800 flex items-center gap-2 px-5 py-3 rounded-xl text-white font-mono text-[11px] uppercase tracking-wider border border-slate-700 hover:border-purple-500/50 transition-all group">
+                 <User size={14} className="text-purple-500/50 group-hover:text-purple-400" />
+                 <span className="text-slate-400 group-hover:text-white">cat ./</span>
+                 <span className="font-bold text-purple-400">sobre_mim.md</span>
                </Link>
-               <Link to="/sobre" className="glass-card hover:bg-slate-800 flex items-center gap-2 px-6 py-3 rounded-xl text-white font-mono text-xs uppercase tracking-wider border border-slate-700 hover:border-cyan-500/50 transition-all">
-                 <User size={16} className="text-cyan-400" /> ./sobre_mim.md
-               </Link>
-               <a href={`https://wa.me/${PERSONAL_INFO.phone.replace(/\D/g,'')}`} target="_blank" rel="noreferrer" className="glass-card hover:bg-slate-800 flex items-center gap-2 px-6 py-3 rounded-xl text-white font-mono text-xs uppercase tracking-wider border border-slate-700 hover:border-cyan-500/50 transition-all">
-                 <Code2 size={16} className="text-cyan-400" /> &lt;Contato /&gt;
+
+               <a href={`https://wa.me/${PERSONAL_INFO.phone.replace(/\D/g,'')}`} target="_blank" rel="noreferrer" className="bg-cyan-500/10 hover:bg-cyan-500/20 flex items-center gap-2 px-5 py-3 rounded-xl text-cyan-400 font-mono text-[11px] uppercase tracking-wider border border-cyan-500/30 hover:border-cyan-500/50 transition-all group">
+                 <MessageSquare size={14} className="group-hover:scale-110 transition-transform" />
+                 <span className="font-bold">./falar_com_leo.sh</span>
                </a>
             </div>
           </motion.div>
