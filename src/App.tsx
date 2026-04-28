@@ -90,26 +90,15 @@ const Navbar = () => {
         style={{ background: 'rgba(8, 11, 18, 0.85)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
       >
         <div className="max-w-7xl mx-auto px-4 lg:px-8 h-full flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <Link to="/" className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded bg-slate-900 border border-slate-700 flex items-center justify-center">
-                 <span className="text-white font-black text-xs">LC</span>
-              </div>
-              <div className="hidden sm:block">
-                <p className="text-slate-200 font-bold text-sm tracking-tight leading-none">{PERSONAL_INFO.name}</p>
-                <p className="text-slate-500 font-mono text-[9px] uppercase tracking-widest leading-none mt-1">Engenharia de Software</p>
-              </div>
-            </Link>
-
-            {/* Availability Badge */}
-            <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 shadow-[0_0_10px_rgba(34,197,94,0.1)]">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
-              <span className="text-[9px] font-mono font-bold text-green-400 uppercase tracking-tighter whitespace-nowrap">Disponível para projetos_</span>
+          <Link to="/" className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded bg-slate-900 border border-slate-700 flex items-center justify-center">
+               <span className="text-white font-black text-xs">LC</span>
             </div>
-          </div>
+            <div className="hidden sm:block">
+              <p className="text-slate-200 font-bold text-sm tracking-tight leading-none">{PERSONAL_INFO.name}</p>
+              <p className="text-slate-500 font-mono text-[9px] uppercase tracking-widest leading-none mt-1">Engenharia de Software</p>
+            </div>
+          </Link>
 
           {/* Center Navigation */}
           <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-1">
@@ -1236,7 +1225,6 @@ export default function App() {
   return (
     <Router>
       <ScrollToHash />
-      <Analytics />
       <div className="min-h-screen bg-[#080b12] text-slate-200">
         <Navbar />
         {/* Added pt-16 for desktop header and pb-16 for mobile bottom bar */}
