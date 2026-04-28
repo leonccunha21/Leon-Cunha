@@ -784,12 +784,12 @@ const HomePage = () => {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-900 border border-slate-800 mb-8 font-mono text-[10px] text-cyan-400 uppercase tracking-widest">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" /> /dev/online · Kotlin · Firebase · React
             </div>
-            <h2 className="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tight leading-tight lg:leading-[1.1] mb-6 text-white break-words">
-              <span className="gradient-text">9 apps.</span> +15k downloads. <br className="hidden lg:block"/>
-              Código que vai <span className="gradient-text">a produção.</span>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-4 text-white max-w-3xl">
+              Transformando ideias em <br className="hidden sm:block"/>
+              <span className="gradient-text">experiências digitais memoráveis.</span>
             </h2>
-            <p className="text-xl text-slate-400 leading-relaxed max-w-2xl font-light mb-10">
-              Android Developer & Full Stack. Fundador do ecossistema ZM — apps nativos em Kotlin, Firebase, MVVM · Sites e portais em React & Next.js. Produtos reais, com arquitetura real.
+            <p className="text-lg text-slate-400 leading-relaxed max-w-2xl font-light mb-8">
+              Desenvolvedor Android & Full Stack. Crio aplicativos móveis e plataformas web com foco em performance e resultados reais.
             </p>
             <div className="flex gap-4">
                <Link to="/apps" className="btn-primary flex items-center gap-2">
