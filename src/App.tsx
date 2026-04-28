@@ -249,6 +249,108 @@ const StatsSection = () => {
   );
 };
 
+const TestimonialsSection = () => {
+  const testimonials = [
+    {
+      app: "Garagem HotDeck",
+      text: "O app mudou a forma como gerencio minha coleção. A comunidade e o sistema de troca são sensacionais!",
+      user: "Colecionador Verificado",
+      rating: 5
+    },
+    {
+      app: "MEI Pro",
+      text: "Simplesmente o melhor app para quem é MEI. Organizado, rápido e sem mensalidades abusivas.",
+      user: "Empreendedor Individual",
+      rating: 5
+    },
+    {
+      app: "Número da Sorte",
+      text: "Uso em todos os sorteios da minha loja. Interface limpa e funciona perfeitamente sempre.",
+      user: "Usuário Android",
+      rating: 5
+    }
+  ];
+
+  return (
+    <section className="mb-24">
+      <div className="flex items-center gap-4 mb-10">
+        <MessageSquare className="text-pink-500" size={24} />
+        <h3 className="text-2xl font-black text-white font-mono uppercase">Feedback dos Usuários_</h3>
+        <div className="h-px flex-1 bg-gradient-to-r from-pink-500/20 to-transparent" />
+      </div>
+      
+      <div className="grid md:grid-cols-3 gap-6">
+        {testimonials.map((t, i) => (
+          <motion.div
+            key={t.app}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.1 }}
+            className="glass-card p-8 rounded-3xl border border-slate-800/50 hover:border-pink-500/30 transition-all group"
+          >
+            <div className="flex gap-1 mb-4">
+               {[...Array(t.rating)].map((_, i) => <Star key={i} size={14} className="text-yellow-400 fill-yellow-400" />)}
+            </div>
+            <p className="text-slate-300 italic mb-6 leading-relaxed">"{t.text}"</p>
+            <div className="flex items-center gap-3 pt-6 border-t border-slate-800/50">
+              <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-pink-400 border border-slate-700">
+                {t.user.charAt(0)}
+              </div>
+              <div>
+                <p className="text-xs font-black text-white">{t.user}</p>
+                <p className="text-[10px] font-mono text-slate-500 uppercase">{t.app}</p>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const ActivitySection = () => {
+  return (
+    <section className="mb-24">
+       <div className="glass-card p-10 rounded-[2.5rem] border border-cyan-500/10 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[radial-gradient(circle_at_center,rgba(0,229,255,0.05),transparent_70%)]" />
+          <div className="grid lg:grid-cols-[1fr_auto] gap-12 items-center">
+             <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 font-mono text-[10px] uppercase tracking-widest mb-6">
+                   <Code2 size={12} /> Engenharia Ativa
+                </div>
+                <h3 className="text-3xl font-black text-white mb-4">Desenvolvimento de Alta Performance</h3>
+                <p className="text-slate-400 max-w-xl leading-relaxed mb-8">
+                   Cada linha de código é escrita com foco em escalabilidade e experiência do usuário. Do Android Studio ao VS Code, o ecossistema ZM não para de crescer.
+                </p>
+                <div className="flex flex-wrap gap-1">
+                   {[...Array(40)].map((_, i) => (
+                      <div key={i} className={`w-3 h-3 rounded-[2px] ${
+                        i % 7 === 0 ? 'bg-cyan-500' : 
+                        i % 5 === 0 ? 'bg-cyan-600/60' : 
+                        i % 3 === 0 ? 'bg-slate-800' : 'bg-slate-900'
+                      }`} />
+                   ))}
+                   <span className="text-[9px] font-mono text-slate-500 ml-2 mt-1">Status de Commits_</span>
+                </div>
+             </div>
+             <div className="hidden lg:block w-px h-32 bg-slate-800" />
+             <div className="flex flex-col gap-4">
+                <div className="text-center p-6 rounded-2xl bg-slate-900/50 border border-slate-800">
+                   <p className="text-xs font-mono text-slate-500 uppercase mb-2">Build Status_</p>
+                   <p className="text-2xl font-black text-green-400">PASSING</p>
+                </div>
+                <div className="text-center p-6 rounded-2xl bg-slate-900/50 border border-slate-800">
+                   <p className="text-xs font-mono text-slate-500 uppercase mb-2">AI Inference_</p>
+                   <p className="text-2xl font-black text-cyan-400">READY</p>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+  );
+};
+
 const SkillsSection = () => {
   return (
     <div className="mb-24">
@@ -803,12 +905,34 @@ const HomePage = () => {
                 <br/>
                 &nbsp;&nbsp;role: <span className="text-green-400">"Android & Full Stack"</span>,
                 <br/>
-                &nbsp;&nbsp;focus: <span className="text-green-400">"Performance & Resultados"</span>,
+                &nbsp;&nbsp;focus: <span className="text-green-400">"IA & Performance"</span>,
                 <br/>
-                &nbsp;&nbsp;frameworks: [<span className="text-green-400">"Kotlin"</span>, <span className="text-green-400">"React"</span>, <span className="text-green-400">"Node.js"</span>]
+                &nbsp;&nbsp;frameworks: [<span className="text-green-400">"Kotlin"</span>, <span className="text-green-400">"React"</span>, <span className="text-green-400">"Firebase"</span>]
                 <br/>
                 {'}'};
               </p>
+              
+              <div className="mt-6 pt-6 border-t border-slate-800/50 space-y-2 font-mono text-[10px] tracking-tight">
+                <div className="flex items-center gap-2 text-cyan-500/70">
+                  <span className="shrink-0">[SYSTEM]</span>
+                  <span className="text-slate-500">Iniciando análise de métricas...</span>
+                </div>
+                <div className="flex items-center gap-2 text-green-500/70">
+                  <span className="shrink-0">[OK]</span>
+                  <span className="text-slate-300">Garagem HotDeck: <span className="text-white font-bold">15k+ downloads</span> ativos</span>
+                </div>
+                <div className="flex items-center gap-2 text-green-500/70">
+                  <span className="shrink-0">[OK]</span>
+                  <span className="text-slate-300">Catálogo: <span className="text-white font-bold">9 apps</span> publicados e monitorados</span>
+                </div>
+                <div className="flex items-center gap-2 text-purple-500/70">
+                  <span className="shrink-0">[AI]</span>
+                  <span className="text-slate-300">Integração <span className="text-white font-bold">Google AI SDK</span> operando nominalmente</span>
+                </div>
+                <div className="flex items-center gap-2 animate-pulse">
+                   <span className="text-cyan-500">_</span>
+                </div>
+              </div>
             </div>
 
             {/* Tech Buttons */}
@@ -827,8 +951,10 @@ const HomePage = () => {
         </section>
 
         <StatsSection />
+        <ActivitySection />
         <CompaniesSection />
         <SkillsSection />
+        <TestimonialsSection />
 
         {/* All Apps */}
         <section className="mb-24">
