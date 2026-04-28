@@ -45,7 +45,8 @@ import {
   X,
   Home,
   User,
-  Folder
+  Folder,
+  Monitor
 } from "lucide-react";
 import { useState } from "react";
 import { PROJECTS, EXPERIENCE, SOCIAL_LINKS, PERSONAL_INFO, COMPANIES, EDUCATION, STATS, SKILLS, SERVICES } from "./constants";
