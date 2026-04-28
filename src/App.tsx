@@ -89,16 +89,26 @@ const Navbar = () => {
         style={{ background: 'rgba(8, 11, 18, 0.85)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
       >
         <div className="max-w-7xl mx-auto px-4 lg:px-8 h-full flex items-center justify-between">
-          {/* Brand */}
-          <Link to="/" className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded bg-slate-900 border border-slate-700 flex items-center justify-center">
-               <span className="text-white font-black text-xs">LC</span>
+          <div className="flex items-center gap-6">
+            <Link to="/" className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded bg-slate-900 border border-slate-700 flex items-center justify-center">
+                 <span className="text-white font-black text-xs">LC</span>
+              </div>
+              <div className="hidden sm:block">
+                <p className="text-slate-200 font-bold text-sm tracking-tight leading-none">{PERSONAL_INFO.name}</p>
+                <p className="text-slate-500 font-mono text-[9px] uppercase tracking-widest leading-none mt-1">Engenharia de Software</p>
+              </div>
+            </Link>
+
+            {/* Availability Badge */}
+            <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 shadow-[0_0_10px_rgba(34,197,94,0.1)]">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              <span className="text-[9px] font-mono font-bold text-green-400 uppercase tracking-tighter whitespace-nowrap">Disponível para projetos_</span>
             </div>
-            <div className="hidden sm:block">
-              <p className="text-slate-200 font-bold text-sm tracking-tight leading-none">{PERSONAL_INFO.name}</p>
-              <p className="text-slate-500 font-mono text-[9px] uppercase tracking-widest leading-none mt-1">Engenharia de Software</p>
-            </div>
-          </Link>
+          </div>
 
           {/* Center Navigation */}
           <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-1">
@@ -309,44 +319,53 @@ const TestimonialsSection = () => {
   );
 };
 
-const ActivitySection = () => {
+const ShowcaseSection = () => {
+  const mockups = [
+    {
+      title: "Garagem HotDeck",
+      category: "Social & Collection",
+      image: "/hotdeck_mockup.png",
+      color: "from-cyan-500/20 to-blue-500/20"
+    },
+    {
+      title: "MEI Pro",
+      category: "Business & Finance",
+      image: "/meipro_mockup.png",
+      color: "from-purple-500/20 to-pink-500/20"
+    }
+  ];
+
   return (
     <section className="mb-24">
-       <div className="glass-card p-10 rounded-[2.5rem] border border-cyan-500/10 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[radial-gradient(circle_at_center,rgba(0,229,255,0.05),transparent_70%)]" />
-          <div className="grid lg:grid-cols-[1fr_auto] gap-12 items-center">
-             <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 font-mono text-[10px] uppercase tracking-widest mb-6">
-                   <Code2 size={12} /> Engenharia Ativa
-                </div>
-                <h3 className="text-3xl font-black text-white mb-4">Desenvolvimento de Alta Performance</h3>
-                <p className="text-slate-400 max-w-xl leading-relaxed mb-8">
-                   Cada linha de código é escrita com foco em escalabilidade e experiência do usuário. Do Android Studio ao VS Code, o ecossistema ZM não para de crescer.
-                </p>
-                <div className="flex flex-wrap gap-1">
-                   {[...Array(40)].map((_, i) => (
-                      <div key={i} className={`w-3 h-3 rounded-[2px] ${
-                        i % 7 === 0 ? 'bg-cyan-500' : 
-                        i % 5 === 0 ? 'bg-cyan-600/60' : 
-                        i % 3 === 0 ? 'bg-slate-800' : 'bg-slate-900'
-                      }`} />
-                   ))}
-                   <span className="text-[9px] font-mono text-slate-500 ml-2 mt-1">Status de Commits_</span>
-                </div>
-             </div>
-             <div className="hidden lg:block w-px h-32 bg-slate-800" />
-             <div className="flex flex-col gap-4">
-                <div className="text-center p-6 rounded-2xl bg-slate-900/50 border border-slate-800">
-                   <p className="text-xs font-mono text-slate-500 uppercase mb-2">Build Status_</p>
-                   <p className="text-2xl font-black text-green-400">PASSING</p>
-                </div>
-                <div className="text-center p-6 rounded-2xl bg-slate-900/50 border border-slate-800">
-                   <p className="text-xs font-mono text-slate-500 uppercase mb-2">AI Inference_</p>
-                   <p className="text-2xl font-black text-cyan-400">READY</p>
-                </div>
-             </div>
-          </div>
-       </div>
+      <div className="flex items-center gap-4 mb-10">
+        <Monitor className="text-cyan-400" size={24} />
+        <h3 className="text-2xl font-black text-white font-mono uppercase">Premium App Showcase_</h3>
+        <div className="h-px flex-1 bg-gradient-to-r from-cyan-500/20 to-transparent" />
+      </div>
+      
+      <div className="grid md:grid-cols-2 gap-8">
+        {mockups.map((m, i) => (
+          <motion.div
+            key={m.title}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.2 }}
+            className={`group relative rounded-[2.5rem] overflow-hidden border border-white/5 bg-gradient-to-br ${m.color} aspect-[16/10]`}
+          >
+            <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-all duration-700" />
+            <img 
+              src={m.image} 
+              alt={m.title} 
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+            />
+            <div className="absolute inset-0 p-8 flex flex-col justify-end bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent">
+              <p className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest mb-1">{m.category}</p>
+              <h4 className="text-3xl font-black text-white">{m.title}</h4>
+            </div>
+          </motion.div>
+        ))}
+      </div>
     </section>
   );
 };
@@ -966,6 +985,7 @@ const HomePage = () => {
         <CompaniesSection />
         <StatsSection />
         <ActivitySection />
+        <ShowcaseSection />
         <SkillsSection />
         <TestimonialsSection />
 
