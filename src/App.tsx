@@ -309,6 +309,48 @@ const TestimonialsSection = () => {
   );
 };
 
+const ActivitySection = () => {
+  return (
+    <section className="mb-24">
+       <div className="glass-card p-10 rounded-[2.5rem] border border-cyan-500/10 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl -mr-32 -mt-32" />
+          <div className="relative flex flex-col lg:flex-row items-center gap-12">
+             <div className="flex-1 space-y-6">
+                <div className="flex items-center gap-3 text-cyan-400 font-mono text-xs uppercase tracking-[0.3em]">
+                   <span className="w-8 h-px bg-cyan-500/50" />
+                   Live_System_Activity
+                </div>
+                <h3 className="text-3xl font-black text-white leading-tight">
+                   Monitoramento de <span className="text-cyan-400">Alta Performance</span> em Tempo Real
+                </h3>
+                <div className="flex flex-wrap gap-1">
+                   {[...Array(40)].map((_, i) => (
+                      <div key={i} className={`w-3 h-3 rounded-[2px] ${
+                        i % 7 === 0 ? 'bg-cyan-500' : 
+                        i % 5 === 0 ? 'bg-cyan-600/60' : 
+                        i % 3 === 0 ? 'bg-slate-800' : 'bg-slate-900'
+                      }`} />
+                   ))}
+                   <span className="text-[9px] font-mono text-slate-500 ml-2 mt-1">Status de Commits_</span>
+                </div>
+             </div>
+             <div className="hidden lg:block w-px h-32 bg-slate-800" />
+             <div className="flex flex-col gap-4">
+                <div className="text-center p-6 rounded-2xl bg-slate-900/50 border border-slate-800">
+                   <p className="text-xs font-mono text-slate-500 uppercase mb-2">Build Status_</p>
+                   <p className="text-2xl font-black text-green-400">PASSING</p>
+                </div>
+                <div className="text-center p-6 rounded-2xl bg-slate-900/50 border border-slate-800">
+                   <p className="text-xs font-mono text-slate-500 uppercase mb-2">AI Inference_</p>
+                   <p className="text-2xl font-black text-cyan-400">READY</p>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+  );
+};
+
 const ShowcaseSection = () => {
   const mockups = [
     {
