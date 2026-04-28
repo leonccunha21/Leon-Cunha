@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { useEffect } from "react";
 import { 
   BrowserRouter as Router, 
@@ -916,6 +916,8 @@ const ProjectCard = ({ project, index }: { project: any; index: number; key?: st
 // --- Pages ---
 
 const HomePage = () => {
+  const [hoveredInfo, setHoveredInfo] = useState<string | null>(null);
+
   return (
     <div className="flex-1 p-4 sm:p-8 lg:p-16 grid-bg min-h-screen relative pt-20 pb-24 md:pb-16">
       <div className="absolute top-0 left-0 right-0 h-96 bg-gradient-to-b from-cyan-500/5 to-transparent pointer-events-none" />
@@ -935,31 +937,74 @@ const HomePage = () => {
               Desenvolvedor Android Nativo & Full Stack. Especialista em criar soluções mobile escaláveis e ecossistemas digitais de alta performance.
             </p>
 
-            <div className="flex flex-wrap gap-4 mb-10">
+            <div className="flex flex-wrap gap-4 mb-12">
               <Link to="/apps" className="btn-primary flex items-center gap-2">
                  Ver Projetos <ArrowRight size={18} />
               </Link>
               <Link to="/sobre" className="btn-outline">Conhecer Trajetória</Link>
             </div>
 
-            {/* Ecosystem Command Menu - Quick Access */}
-            <div className="flex flex-wrap gap-3">
-               {COMPANIES.map((company) => (
+            {/* Ecosystem Command Menu - Interactive */}
+            <div className="space-y-4">
+              <div className="flex flex-wrap gap-3">
+                 {COMPANIES.map((company) => (
+                   <Link 
+                     key={company.id}
+                     to={`/empresa/${company.slug}`} 
+                     onMouseEnter={() => setHoveredInfo(company.description)}
+                     onMouseLeave={() => setHoveredInfo(null)}
+                     className="glass-card hover:bg-slate-800 flex items-center gap-2 px-5 py-3 rounded-xl text-white font-mono text-[11px] uppercase tracking-wider border border-slate-700 hover:border-cyan-500/50 transition-all group"
+                   >
+                     <Folder size={14} className="text-cyan-500/50 group-hover:text-cyan-400" />
+                     <span className="text-slate-500 group-hover:text-slate-300">cd ./</span>
+                     <span className="font-bold text-cyan-400 group-hover:text-cyan-300">{company.slug.replace(/-/g, '_')}</span>
+                   </Link>
+                 ))}
+
                  <Link 
-                   key={company.id}
-                   to={`/empresa/${company.slug}`} 
-                   className="glass-card hover:bg-slate-800 flex items-center gap-2 px-5 py-3 rounded-xl text-white font-mono text-[11px] uppercase tracking-wider border border-slate-700 hover:border-cyan-500/50 transition-all group"
+                   to="/sobre" 
+                   onMouseEnter={() => setHoveredInfo("Biografia, stack técnica e detalhes da minha jornada profissional.")}
+                   onMouseLeave={() => setHoveredInfo(null)}
+                   className="glass-card hover:bg-slate-800 flex items-center gap-2 px-5 py-3 rounded-xl text-white font-mono text-[11px] uppercase tracking-wider border border-slate-700 hover:border-purple-500/50 transition-all group"
                  >
-                   <Folder size={14} className="text-cyan-500/50 group-hover:text-cyan-400" />
-                   <span className="text-slate-500 group-hover:text-slate-300">cd ./</span>
-                   <span className="font-bold text-cyan-400 group-hover:text-cyan-300">{company.slug.replace(/-/g, '_')}</span>
+                   <User size={14} className="text-purple-500/50 group-hover:text-purple-400" />
+                   <span className="text-slate-500 group-hover:text-slate-300">cat ./</span>
+                   <span className="font-bold text-purple-400 group-hover:text-purple-300">sobre_mim.md</span>
                  </Link>
-               ))}
+
+                 <a 
+                   href={`https://wa.me/${PERSONAL_INFO.phone.replace(/\D/g,'')}`} 
+                   target="_blank" 
+                   rel="noreferrer"
+                   onMouseEnter={() => setHoveredInfo("Entre em contato direto via WhatsApp para parcerias ou orçamentos.")}
+                   onMouseLeave={() => setHoveredInfo(null)}
+                   className="bg-cyan-500/5 hover:bg-cyan-500/10 flex items-center gap-2 px-5 py-3 rounded-xl text-cyan-400 font-mono text-[11px] uppercase tracking-wider border border-cyan-500/20 hover:border-cyan-500/50 transition-all group"
+                 >
+                   <MessageSquare size={14} className="text-cyan-500/50 group-hover:scale-110 transition-all" />
+                   <span className="font-bold">./falar_com_leo.sh</span>
+                 </a>
+              </div>
+
+              {/* Dynamic Description Block */}
+              <div className="h-6">
+                <AnimatePresence mode="wait">
+                  {hoveredInfo && (
+                    <motion.p
+                      key={hoveredInfo}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 10 }}
+                      className="text-xs font-mono text-slate-500 flex items-center gap-2"
+                    >
+                      <span className="text-cyan-500 font-bold">{">"}</span> {hoveredInfo}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           </motion.div>
         </section>
 
-        <CompaniesSection />
         <StatsSection />
         <ActivitySection />
         <SkillsSection />
