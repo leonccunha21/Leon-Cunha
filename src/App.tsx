@@ -950,9 +950,9 @@ const HomePage = () => {
           </motion.div>
         </section>
 
+        <CompaniesSection />
         <StatsSection />
         <ActivitySection />
-        <CompaniesSection />
         <SkillsSection />
         <TestimonialsSection />
 
