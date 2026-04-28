@@ -816,6 +816,9 @@ const HomePage = () => {
                <Link to="/apps" className="btn-primary flex items-center gap-2 font-mono text-xs uppercase tracking-wider group">
                  <Terminal size={16} /> ./ver_projetos.sh
                </Link>
+               <Link to="/sobre" className="glass-card hover:bg-slate-800 flex items-center gap-2 px-6 py-3 rounded-xl text-white font-mono text-xs uppercase tracking-wider border border-slate-700 hover:border-cyan-500/50 transition-all">
+                 <User size={16} className="text-cyan-400" /> ./sobre_mim.md
+               </Link>
                <a href={`https://wa.me/${PERSONAL_INFO.phone.replace(/\D/g,'')}`} target="_blank" rel="noreferrer" className="glass-card hover:bg-slate-800 flex items-center gap-2 px-6 py-3 rounded-xl text-white font-mono text-xs uppercase tracking-wider border border-slate-700 hover:border-cyan-500/50 transition-all">
                  <Code2 size={16} className="text-cyan-400" /> &lt;Contato /&gt;
                </a>
@@ -886,126 +889,182 @@ const ProjectsPage = () => {
 const AboutPage = () => {
   return (
     <div className="flex-1 p-4 sm:p-8 lg:p-16 grid-bg min-h-screen pt-20 pb-24 md:pb-16">
-      <div className="max-w-5xl mx-auto">
-        <section className="mb-16 pt-8 lg:pt-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-cyan-500/10 border border-cyan-500/20 mb-6 font-mono text-[10px] text-cyan-400 uppercase tracking-widest">
-            <Code2 size={12} /> Perfil Profissional
+      <div className="max-w-6xl mx-auto">
+        {/* Header Section */}
+        <section className="mb-20 pt-8 lg:pt-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-cyan-500/10 border border-cyan-500/20 mb-8 font-mono text-[10px] text-cyan-400 uppercase tracking-widest">
+            <User size={12} /> Perfil Profissional & Biografia
           </div>
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-16">
+          
+          <div className="grid lg:grid-cols-[1fr_380px] gap-16 items-start">
             <div>
-              <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">Currículo Profissional_</h2>
-              <p className="text-slate-400 font-mono text-sm uppercase tracking-widest">Trajetória, formação e competências técnicas.</p>
-            </div>
-            <a href="#" className="flex items-center gap-3 px-6 py-4 bg-cyan-500 text-black font-black rounded-xl hover:bg-cyan-400 transition-all shadow-lg shadow-cyan-500/20 group">
-              <Download size={20} />
-              BAIXAR_CV.PDF
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-          </div>
+              <h1 className="text-4xl lg:text-6xl font-black text-white mb-8 tracking-tight">
+                Leonardo Cunha<span className="text-cyan-500">.</span>
+              </h1>
+              <div className="space-y-6 text-lg text-slate-400 leading-relaxed max-w-3xl">
+                <p>
+                  Sou um desenvolvedor apaixonado por transformar problemas complexos em soluções digitais elegantes e escaláveis. Com foco em <span className="text-white font-bold">Android Nativo (Kotlin)</span> e <span className="text-white font-bold">Web Moderno (React)</span>, minha trajetória é marcada pelo empreendedorismo e pela entrega constante de valor através de software.
+                </p>
+                <p>
+                  Como fundador da <span className="text-cyan-400 font-bold">ZM Store Desenvolvimentos</span>, publiquei 9 aplicativos na Google Play Store, alcançando a marca de mais de 15 mil downloads. Meu trabalho vai além do código: envolve a concepção do produto, design de experiência e estratégias de crescimento.
+                </p>
+                <p>
+                  Acredito na tecnologia como ferramenta de impacto real, seja automatizando processos para microempreendedores ou criando comunidades vibrantes para colecionadores.
+                </p>
+              </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Experience */}
-            <div>
-              <h3 className="text-xl font-black text-white mb-8 font-mono uppercase flex items-center gap-3">
-                <BriefcaseBusiness className="text-cyan-400" size={24} />
-                Experiência_
-              </h3>
-              <div className="space-y-6">
-                {EXPERIENCE.map((exp, i) => (
-                  <motion.div 
-                    key={exp.company}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    className="glass-card p-6 rounded-2xl border border-slate-800/50 hover:border-cyan-500/30 transition-all relative overflow-hidden group"
-                  >
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-cyan-500/5 to-transparent pointer-events-none" />
+              {/* Quick Info Grid */}
+              <div className="grid sm:grid-cols-2 gap-4 mt-12">
+                <div className="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+                    <MapPin size={20} />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Localização_</p>
+                    <p className="text-sm font-bold text-slate-200">Brasília, DF — Brasil</p>
+                  </div>
+                </div>
+                <div className="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+                    <GraduationCap size={20} />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Formação_</p>
+                    <p className="text-sm font-bold text-slate-200">ADS & MBA Gestão Escolar</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-[2rem] blur-2xl opacity-50 group-hover:opacity-75 transition-opacity" />
+              <div className="relative aspect-square rounded-[2rem] overflow-hidden border border-white/10 bg-slate-900 shadow-2xl">
+                <img 
+                  src="/profile_tech_avatar.png" 
+                  alt="Leonardo Cunha" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60" />
+                <div className="absolute bottom-6 left-6 right-6 p-4 glass-card rounded-xl border border-white/10">
+                   <p className="text-white font-black text-sm mb-1 uppercase tracking-tight">Leonardo C. Cunha</p>
+                   <p className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">Software Engineer & Founder</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Experience & Education Grid */}
+        <div className="grid lg:grid-cols-[1fr_400px] gap-20 mb-24">
+          {/* Main Column: Experience */}
+          <section>
+            <div className="flex items-center gap-4 mb-10">
+               <BriefcaseBusiness className="text-cyan-400" size={24} />
+               <h3 className="text-2xl font-black text-white font-mono uppercase">Trajetória Profissional_</h3>
+               <div className="h-px flex-1 bg-gradient-to-r from-cyan-500/20 to-transparent" />
+            </div>
+
+            <div className="space-y-8 relative before:absolute before:left-8 before:top-4 before:bottom-4 before:w-px before:bg-slate-800">
+              {EXPERIENCE.map((exp, i) => (
+                <motion.div 
+                  key={exp.company}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="relative pl-16 group"
+                >
+                  <div className="absolute left-7 top-6 w-3 h-3 rounded-full bg-slate-900 border-2 border-cyan-500 z-10 group-hover:scale-150 group-hover:bg-cyan-500 transition-all duration-300" />
+                  <div className="glass-card p-8 rounded-2xl border border-slate-800/50 hover:border-cyan-500/30 transition-all relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-cyan-500/5 to-transparent pointer-events-none" />
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
-                      <span className="text-cyan-400 font-mono text-[10px] font-bold tracking-widest px-2 py-1 bg-cyan-500/5 rounded border border-cyan-500/10 w-fit">{exp.period}</span>
-                      <span className="text-[10px] font-mono text-slate-500 font-bold uppercase tracking-widest">{exp.company}</span>
+                      <span className="text-cyan-400 font-mono text-[10px] font-bold tracking-widest px-2 py-1 bg-cyan-500/10 rounded border border-cyan-500/20 w-fit">{exp.period}</span>
+                      <h4 className="text-xs font-mono text-slate-500 font-bold uppercase tracking-widest">{exp.company}</h4>
                     </div>
-                    <h4 className="font-black text-white text-xl mb-1 group-hover:text-cyan-400 transition-colors">{exp.role}</h4>
+                    <h4 className="font-black text-white text-2xl mb-3 group-hover:text-cyan-400 transition-colors">{exp.role}</h4>
                     <p className="text-sm text-slate-400 mb-6 leading-relaxed">{exp.description}</p>
                     <div className="flex flex-wrap gap-2">
                        {exp.tech.map(t => (
-                         <span key={t} className="text-[9px] font-mono text-slate-300 bg-slate-900 px-2 py-1 rounded border border-slate-800">{t}</span>
+                         <span key={t} className="text-[9px] font-mono text-slate-300 bg-slate-900/50 px-2.5 py-1.5 rounded border border-slate-700/50 group-hover:border-cyan-500/20 transition-colors">{t}</span>
                        ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
+          {/* Sidebar Column: Education & Values */}
+          <aside className="space-y-16">
+            {/* Education Section */}
+            <section>
+              <div className="flex items-center gap-4 mb-8">
+                <GraduationCap className="text-purple-400" size={22} />
+                <h3 className="text-lg font-black text-white font-mono uppercase">Formação_</h3>
+              </div>
+              <div className="space-y-4">
+                {EDUCATION.slice(0, 4).map((edu, i) => (
+                  <motion.div 
+                    key={edu.title}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="p-5 rounded-2xl border border-slate-800/50 bg-slate-900/30 hover:border-purple-500/30 transition-all flex items-start gap-4"
+                  >
+                    <div className="text-xl">{edu.icon}</div>
+                    <div>
+                       <h4 className="font-bold text-white text-sm mb-1 leading-snug">{edu.title}</h4>
+                       <p className="text-[11px] text-slate-500 mb-2">{edu.institution}</p>
+                       <span className="text-[9px] font-mono text-purple-400 uppercase tracking-widest">{edu.period}</span>
                     </div>
                   </motion.div>
                 ))}
               </div>
-            </div>
+            </section>
 
-            {/* Education */}
-            <div className="space-y-12">
-              <div>
-                <h3 className="text-xl font-black text-white mb-8 font-mono uppercase flex items-center gap-3">
-                  <GraduationCap className="text-cyan-400" size={24} />
-                  Formação & Cursos_
-                </h3>
-                <div className="space-y-4">
-                  {EDUCATION.map((edu, i) => (
-                    <motion.div 
-                      key={edu.title}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.1 }}
-                      className="glass-card p-6 rounded-2xl border border-slate-800/50 hover:border-cyan-500/30 transition-all flex items-start gap-4 group"
-                    >
-                      <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 group-hover:border-cyan-500/30 transition-all">
-                        {edu.icon}
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-1">
-                          <h4 className="font-bold text-white text-base group-hover:text-cyan-400 transition-colors">{edu.title}</h4>
-                        </div>
-                        <p className="text-slate-400 font-bold text-xs mb-3">{edu.institution}</p>
-                        <span className="inline-block px-2 py-0.5 bg-slate-800/50 rounded text-[10px] font-mono text-cyan-500 border border-cyan-500/20">
-                          {edu.period}
-                        </span>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
+            {/* Values Section */}
+            <section className="p-8 rounded-3xl bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-500/20">
+              <div className="flex items-center gap-3 mb-6">
+                <Target className="text-cyan-400" size={20} />
+                <h3 className="text-lg font-black text-white font-mono uppercase">Filosofia_</h3>
               </div>
+              <div className="space-y-6">
+                 {[
+                   { t: "Foco no Usuário", d: "Software que resolve problemas reais, sem fricção." },
+                   { t: "Alta Performance", d: "Código otimizado e interfaces instantâneas." },
+                   { t: "Aprendizado Contínuo", d: "Evolução constante no stack tecnológico." }
+                 ].map(val => (
+                   <div key={val.t}>
+                      <h4 className="text-sm font-bold text-white mb-1">{val.t}</h4>
+                      <p className="text-xs text-slate-500 leading-relaxed">{val.d}</p>
+                   </div>
+                 ))}
+              </div>
+            </section>
 
-              {/* Skills */}
-              <div>
-                <h3 className="text-xl font-black text-white mb-8 font-mono uppercase flex items-center gap-3">
-                  <Code2 className="text-cyan-400" size={24} />
-                  Competências_
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {SKILLS.map((skill, i) => (
-                    <motion.div 
-                      key={skill.name}
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.05 }}
-                      className="p-4 rounded-xl border border-slate-800/50 bg-slate-900/30"
-                    >
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-xs font-bold text-slate-300">{skill.name}</span>
-                        <span className="text-[10px] font-mono text-cyan-500">{skill.level}%</span>
-                      </div>
-                      <div className="h-1 bg-slate-800 rounded-full overflow-hidden">
-                        <motion.div 
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1, delay: i * 0.1 }}
-                          className="h-full bg-cyan-500"
-                        />
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+            {/* CV Download CTA */}
+            <div className="p-8 rounded-3xl bg-slate-900 border border-slate-800 text-center relative overflow-hidden group">
+               <div className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+               <p className="text-xs font-mono text-slate-500 uppercase tracking-widest mb-4">Currículo Detalhado_</p>
+               <a href="#" className="w-full py-4 bg-white text-black font-black rounded-xl hover:bg-slate-200 transition-all flex items-center justify-center gap-2 text-sm">
+                  <Download size={18} /> BAIXAR_CV.PDF
+               </a>
             </div>
-          </div>
+          </aside>
+        </div>
+
+        {/* Closing CTA */}
+        <section className="mt-12 text-center py-20 border-t border-slate-800/50">
+           <h3 className="text-3xl lg:text-4xl font-black text-white mb-6">Vamos construir algo juntos?</h3>
+           <p className="text-slate-400 mb-10 max-w-xl mx-auto">Estou sempre aberto a novos desafios e parcerias em projetos de alto impacto. Entre em contato e vamos conversar sobre sua ideia.</p>
+           <div className="flex flex-wrap justify-center gap-4">
+              <a href={`mailto:${PERSONAL_INFO.email}`} className="btn-primary flex items-center gap-2">
+                 <Mail size={18} /> ENVIAR_EMAIL
+              </a>
+              <a href={`https://wa.me/${PERSONAL_INFO.phone.replace(/\D/g,'')}`} target="_blank" rel="noreferrer" className="btn-outline flex items-center gap-2">
+                 <Phone size={18} /> WHATSAPP
+              </a>
+           </div>
         </section>
       </div>
     </div>
