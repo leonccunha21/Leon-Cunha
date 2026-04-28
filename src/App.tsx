@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { motion, AnimatePresence } from "motion/react";
-import { useEffect, useState } from "react";
+import { motion } from "motion/react";
+import { useEffect } from "react";
 import { 
   BrowserRouter as Router, 
   Routes, 
@@ -21,7 +21,6 @@ import {
   Play, 
   ExternalLink, 
   Mail, 
-  Phone, 
   MapPin, 
   ArrowUpRight,
   Download,
@@ -32,10 +31,22 @@ import {
   ShoppingBag,
   Target,
   GraduationCap,
-  X,
   ChevronRight,
-  ArrowLeft
+  ArrowLeft,
+  ArrowRight,
+  Terminal,
+  Code2,
+  Cpu,
+  Phone,
+  Star,
+  Clock,
+  Instagram,
+  Menu,
+  X,
+  Home,
+  User
 } from "lucide-react";
+import { useState } from "react";
 import { PROJECTS, EXPERIENCE, SOCIAL_LINKS, PERSONAL_INFO, COMPANIES, EDUCATION, STATS, SKILLS, SERVICES } from "./constants";
 
 // --- Components ---
@@ -58,126 +69,178 @@ const ScrollToHash = () => {
   return null;
 };
 
-const Sidebar = () => {
+const Navbar = () => {
   const location = useLocation();
-  
-  const menuItems = [
-    { name: "Início", icon: ShoppingBag, href: "/" },
-    { name: "Aplicativos", icon: LayoutGrid, href: "/apps" },
-    { name: "Sobre & Carreira", icon: BriefcaseBusiness, href: "/sobre" },
-    { name: "Contato", icon: MessageSquare, href: "/#contato" },
+  const [open, setOpen] = useState(false);
+
+  const navLinks = [
+    { name: "Visão Geral", href: "/", icon: Terminal },
+    { name: "Ecossistema", href: "/apps", icon: LayoutGrid },
+    { name: "Perfil Técnico", href: "/sobre", icon: Cpu },
   ];
 
-  return (
-    <aside className="w-full lg:w-[400px] lg:h-screen sidebar-gradient text-white p-8 lg:p-12 flex flex-col justify-between lg:fixed lg:top-0 lg:left-0 z-40 overflow-y-auto">
-      <div>
-        <Link to="/" className="block group">
-          <motion.div 
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="w-20 h-20 rounded-2xl bg-indigo-500 mb-8 flex items-center justify-center text-3xl font-bold shadow-lg shadow-indigo-500/30 group-hover:bg-indigo-400 transition-colors"
-          >
-            ZM
-          </motion.div>
-        </Link>
-        <h1 className="text-4xl font-extrabold tracking-tight mb-2 leading-tight">{PERSONAL_INFO.name}</h1>
-        <p className="text-indigo-400 font-bold mb-6 uppercase tracking-[0.2em] text-[10px]">{PERSONAL_INFO.role}</p>
-        <p className="text-slate-400 leading-relaxed text-sm mb-12 font-medium opacity-80">
-          {PERSONAL_INFO.bio}
-        </p>
+  const isActive = (href: string) => location.pathname === href;
 
-        <nav className="space-y-2 mb-12">
-          {menuItems.map((item) => {
-            const isActive = location.pathname === item.href;
-            return (
-              <Link 
-                key={item.name}
-                to={item.href}
-                className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all group ${
-                  isActive ? "bg-white/10 text-white" : "text-slate-400 hover:text-white hover:bg-white/5"
+  return (
+    <>
+      {/* Ultra-Professional Desktop Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 h-16 border-b border-white/5 transition-all duration-300"
+        style={{ background: 'rgba(8, 11, 18, 0.85)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
+      >
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 h-full flex items-center justify-between">
+          {/* Brand */}
+          <Link to="/" className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded bg-slate-900 border border-slate-700 flex items-center justify-center">
+               <span className="text-white font-black text-xs">LC</span>
+            </div>
+            <div className="hidden sm:block">
+              <p className="text-slate-200 font-bold text-sm tracking-tight leading-none">{PERSONAL_INFO.name}</p>
+              <p className="text-slate-500 font-mono text-[9px] uppercase tracking-widest leading-none mt-1">Engenharia de Software</p>
+            </div>
+          </Link>
+
+          {/* Center Navigation */}
+          <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-1">
+            {navLinks.map(link => (
+              <Link
+                key={link.name}
+                to={link.href}
+                className={`relative px-4 py-2 text-sm transition-all duration-200 ${
+                  isActive(link.href)
+                    ? 'text-white font-bold'
+                    : 'text-slate-400 hover:text-slate-200 font-medium'
                 }`}
               >
-                <item.icon size={18} className={isActive ? "text-indigo-400" : "group-hover:text-indigo-400"} />
-                <span className="text-sm font-medium">{item.name}</span>
+                {link.name}
+                {isActive(link.href) && (
+                  <motion.div layoutId="desktop-nav-indicator" className="absolute bottom-0 left-4 right-4 h-[2px] bg-cyan-500 rounded-t-full" />
+                )}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Right Actions */}
+          <div className="hidden md:flex items-center gap-4">
+            <div className="flex items-center gap-3 pr-4 border-r border-white/10">
+              {SOCIAL_LINKS.slice(0,2).map(link => {
+                const Icon = link.name === "LinkedIn" ? Linkedin : Github;
+                return (
+                  <a key={link.name} href={link.url} target="_blank" rel="noreferrer" className="text-slate-500 hover:text-white transition-colors">
+                    <Icon size={18} />
+                  </a>
+                )
+              })}
+            </div>
+            <Link to="/pedido-app" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
+              Iniciar Projeto
+            </Link>
+            <a href={`mailto:${PERSONAL_INFO.email}`} className="ml-2 flex items-center gap-2 px-4 py-2 rounded-lg bg-white hover:bg-slate-200 text-black font-bold text-xs transition-all">
+              Contato
+            </a>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button onClick={() => setOpen(!open)} className="md:hidden flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Fullscreen Overlay */}
+        <motion.div 
+          initial={false}
+          animate={open ? { opacity: 1, y: 0 } : { opacity: 0, y: -10, pointerEvents: 'none' }}
+          className="md:hidden absolute top-16 left-0 right-0 h-[calc(100dvh-64px)] bg-[#080b12] px-6 py-8 flex flex-col"
+        >
+          <div className="flex flex-col gap-6">
+            {navLinks.map(link => (
+              <Link key={link.name} to={link.href} onClick={() => setOpen(false)}
+                className={`flex items-center gap-4 text-2xl font-bold tracking-tight ${isActive(link.href) ? 'text-white' : 'text-slate-500'}`}
+              >
+                {link.name}
+              </Link>
+            ))}
+            
+            <div className="w-full h-px bg-white/5 my-2" />
+            
+            <Link to="/pedido-app" onClick={() => setOpen(false)} className="flex items-center gap-4 text-xl font-medium text-slate-400">
+              Serviços Mobile
+            </Link>
+            <Link to="/pedido-marketing" onClick={() => setOpen(false)} className="flex items-center gap-4 text-xl font-medium text-slate-400">
+              Marketing Digital
+            </Link>
+          </div>
+
+          <div className="mt-auto pb-12">
+            <a href={`mailto:${PERSONAL_INFO.email}`} className="flex items-center justify-center w-full py-4 rounded-xl bg-white text-black font-bold mb-6">
+               Entrar em Contato
+            </a>
+          </div>
+        </motion.div>
+      </header>
+
+      {/* Native-style Mobile Bottom Tab Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#080b12]/95 border-t border-white/5 pb-safe"
+        style={{ backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
+      >
+        <nav className="flex items-center justify-around w-full h-[64px] px-2">
+          {[
+            { href: '/', icon: Terminal, label: 'Início' },
+            { href: '/apps', icon: LayoutGrid, label: 'Apps' },
+            { href: '/pedido-app', icon: Code2, label: 'Serviços' },
+            { href: '/sobre', icon: User, label: 'Perfil' },
+          ].map(tab => {
+            const active = isActive(tab.href);
+            return (
+              <Link key={tab.href} to={tab.href}
+                className={`flex flex-col items-center justify-center w-full h-full gap-1 transition-colors ${
+                  active ? 'text-white' : 'text-slate-500 hover:text-slate-400'
+                }`}
+              >
+                <tab.icon size={22} strokeWidth={active ? 2.5 : 2} />
+                <span className={`text-[10px] whitespace-nowrap ${active ? 'font-bold' : 'font-medium'}`}>{tab.label}</span>
               </Link>
             );
           })}
         </nav>
-
-        <div className="space-y-3 mb-12">
-          <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 group hover:bg-white/10 transition-colors">
-            <div className="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
-              <MapPin size={18} />
-            </div>
-            <div className="overflow-hidden">
-              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest leading-none mb-1">Localização</p>
-              <p className="text-xs text-white font-medium truncate">{PERSONAL_INFO.location}</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 group hover:bg-white/10 transition-colors">
-            <div className="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
-              <Mail size={18} />
-            </div>
-            <div className="overflow-hidden">
-              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest leading-none mb-1">E-mail</p>
-              <p className="text-xs text-white font-medium truncate">{PERSONAL_INFO.email}</p>
-            </div>
-          </div>
-        </div>
       </div>
-
-      <div className="mt-12 lg:mt-0 pt-8 border-t border-slate-800">
-        <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-4">Redes Sociais</p>
-        <div className="flex gap-3 mb-8">
-          {SOCIAL_LINKS.map((link) => {
-            const Icon = link.name === "Linkedin" ? Linkedin : 
-                         link.name === "Github" ? Github : Play;
-            return (
-              <a 
-                key={link.name} 
-                href={link.url}
-                target="_blank"
-                rel="noreferrer"
-                className="w-10 h-10 rounded-xl border border-slate-700 flex items-center justify-center hover:bg-white hover:text-black transition-all text-slate-400"
-              >
-                <Icon size={18} />
-              </a>
-            );
-          })}
-        </div>
-        <Link 
-          to="/apps"
-          className="block w-full py-4 bg-indigo-600 hover:bg-white hover:text-indigo-600 rounded-2xl text-center text-sm font-bold transition-all shadow-xl shadow-indigo-600/20 active:scale-95 border border-transparent hover:border-indigo-600/20"
-        >
-          Minha Store
-        </Link>
-      </div>
-    </aside>
+    </>
   );
 };
 
 const StatsSection = () => {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-24">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-24">
       {STATS.map((stat, i) => {
         const Icon = stat.icon === "Download" ? Download : 
-                     stat.icon === "LayoutGrid" ? LayoutGrid :
+                     stat.icon === "Smartphone" ? Smartphone :
                      stat.icon === "BriefcaseBusiness" ? BriefcaseBusiness : Target;
+        const isHighlight = stat.label === "Downloads totais";
         return (
           <motion.div
             key={stat.label}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.1, type: "spring", stiffness: 100 }}
-            className="p-6 glass-card rounded-[2rem] hover:bg-white transition-all group overflow-hidden relative"
+            transition={{ delay: i * 0.1, duration: 0.5 }}
+            className={`stat-card p-6 rounded-2xl group relative overflow-hidden ${
+              isHighlight 
+                ? "border border-cyan-500 shadow-[0_0_20px_rgba(34,211,238,0.15)] bg-cyan-500/5" 
+                : ""
+            }`}
           >
-            <div className="absolute top-0 right-0 w-16 h-16 bg-indigo-600/5 rounded-bl-[4rem] group-hover:scale-150 transition-transform duration-700" />
-            <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+            {isHighlight && (
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent opacity-50 pointer-events-none" />
+            )}
+            <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform ${
+              isHighlight ? "bg-cyan-500/20 text-cyan-300" : "bg-cyan-500/10 text-cyan-400"
+            }`}>
               <Icon size={20} />
             </div>
-            <p className="text-3xl font-black text-slate-900 mb-1">{stat.value}</p>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">{stat.label}</p>
+            <p className={`text-3xl font-black mb-1 font-mono ${
+              isHighlight ? "text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" : "text-white"
+            }`}>{stat.value}</p>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{stat.label}</p>
+            <p className="text-[9px] text-slate-500 mt-1">{stat.desc}</p>
           </motion.div>
         );
       })}
@@ -189,23 +252,27 @@ const SkillsSection = () => {
   return (
     <div className="mb-24">
       <div className="flex items-center gap-4 mb-10">
-        <h3 className="text-2xl font-black text-slate-900">Expertise Técnica</h3>
-        <div className="h-px flex-1 bg-slate-100" />
+        <Cpu className="text-purple-500" size={24} />
+        <h3 className="text-2xl font-black text-white font-mono uppercase">Stack Tecnológico</h3>
+        <div className="h-px flex-1 bg-gradient-to-r from-purple-500/20 to-transparent" />
       </div>
-      <div className="grid sm:grid-cols-2 gap-8">
+      <div className="grid sm:grid-cols-2 gap-x-12 gap-y-8">
         {SKILLS.map((skill, i) => (
           <div key={skill.name} className="space-y-3">
-            <div className="flex justify-between items-end">
-              <span className="text-sm font-bold text-slate-700 uppercase tracking-widest">{skill.name}</span>
-              <span className="text-xs font-black text-indigo-600">{skill.level}%</span>
+            <div className="flex justify-between items-end font-mono">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">{skill.category}</span>
+                <span className="text-sm font-bold text-slate-200">{skill.name}</span>
+              </div>
+              <span className="text-xs font-black text-cyan-400">{skill.level}%</span>
             </div>
-            <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+            <div className="skill-bar">
               <motion.div 
                 initial={{ width: 0 }}
                 whileInView={{ width: `${skill.level}%` }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.5, delay: i * 0.1, ease: "circOut" }}
-                className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"
+                className="skill-bar-fill"
               />
             </div>
           </div>
@@ -215,30 +282,422 @@ const SkillsSection = () => {
   );
 };
 
-const CompanyCard = ({ company, index }: { company: any; index: number; key?: string | number }) => {
-  const Icon = company.icon === "ShoppingBag" ? ShoppingBag : 
-                company.icon === "Smartphone" ? Smartphone : Target;
+const CompaniesSection = () => {
+  return (
+    <section className="mb-24">
+      <div className="flex items-center gap-4 mb-10">
+        <BriefcaseBusiness className="text-cyan-400" size={24} />
+        <h3 className="text-2xl font-black text-white font-mono uppercase">Ecossistema ZM</h3>
+        <div className="h-px flex-1 bg-gradient-to-r from-cyan-500/20 to-transparent" />
+      </div>
+      
+      <div className="grid lg:grid-cols-3 gap-6">
+        {COMPANIES.map((company, i) => {
+          const Icon = company.icon === "ShoppingBag" ? ShoppingBag :
+                       company.icon === "Target" ? Target : Smartphone;
+          const mainLink = company.links?.[0]?.url || "#";
+          
+          return (
+            <motion.div
+              key={company.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+            >
+              <Link 
+                to={`/empresa/${company.slug}`}
+                className="glass-card flex flex-col h-full rounded-2xl border border-slate-800/50 hover:border-cyan-500/50 transition-all overflow-hidden group block"
+              >
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-cyan-400 group-hover:scale-110 group-hover:border-cyan-500/30 transition-all">
+                      <Icon size={24} />
+                    </div>
+                    <ChevronRight size={20} className="text-slate-600 group-hover:text-cyan-400 transition-colors" />
+                  </div>
+                  
+                  <h4 className="text-xl font-black text-white mb-1 group-hover:text-cyan-400 transition-colors">{company.name}</h4>
+                  <p className="text-[10px] font-mono text-cyan-500 font-bold uppercase tracking-widest mb-4">{company.type}</p>
+                  <p className="text-sm text-slate-400 flex-1 leading-relaxed">{company.description}</p>
+                  
+                  <div className="mt-6 space-y-2">
+                    {company.highlights.map(h => (
+                      <div key={h} className="flex items-center gap-2 text-xs font-mono text-slate-300">
+                        <ChevronRight size={12} className="text-cyan-500" /> {h}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="px-6 py-4 border-t border-slate-800/50 bg-slate-900/30 text-[10px] font-bold font-mono text-cyan-500 uppercase tracking-widest flex items-center justify-between group-hover:bg-cyan-500/5 transition-all">
+                  <span>Conhecer Empresa_</span>
+                  <ArrowRight size={14} />
+                </div>
+              </Link>
+            </motion.div>
+          );
+        })}
+      </div>
+    </section>
+  );
+};
+
+const CompanyPage = () => {
+  const { slug } = useParams();
+  const company = COMPANIES.find(c => c.slug === slug);
+  const navigate = useNavigate();
+
+  if (!company) {
+    return (
+      <div className="flex-1 lg:ml-[320px] flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-white mb-4">Empresa não encontrada</h2>
+          <button onClick={() => navigate('/')} className="btn-primary">Voltar ao Início</button>
+        </div>
+      </div>
+    );
+  }
+
+  const Icon = company.icon === "ShoppingBag" ? ShoppingBag :
+               company.icon === "Target" ? Target : Smartphone;
+
+  const linkIconColor = (name: string) => {
+    const n = name.toLowerCase();
+    if (n.includes('instagram')) return { bg: 'from-pink-500/20 to-purple-500/20', border: 'border-pink-500/30', text: 'text-pink-400', icon: <Instagram size={16} /> };
+    if (n.includes('shopee') || n.includes('loja')) return { bg: 'from-orange-500/20 to-amber-500/20', border: 'border-orange-500/30', text: 'text-orange-400', icon: <ShoppingBag size={16} /> };
+    if (n.includes('google') || n.includes('maps') || n.includes('localização')) return { bg: 'from-green-500/20 to-emerald-500/20', border: 'border-green-500/30', text: 'text-green-400', icon: <MapPin size={16} /> };
+    if (n.includes('github')) return { bg: 'from-slate-500/20 to-slate-600/20', border: 'border-slate-500/30', text: 'text-slate-300', icon: <Github size={16} /> };
+    if (n.includes('whatsapp')) return { bg: 'from-green-400/20 to-green-600/20', border: 'border-green-400/30', text: 'text-green-400', icon: <Phone size={16} /> };
+    if (n.includes('play store') || n.includes('apps')) return { bg: 'from-cyan-500/20 to-blue-500/20', border: 'border-cyan-500/30', text: 'text-cyan-400', icon: <Play size={16} /> };
+    return { bg: 'from-slate-700/30 to-slate-600/20', border: 'border-slate-600/30', text: 'text-slate-400', icon: <ExternalLink size={16} /> };
+  };
 
   return (
-    <Link to={`/company/${company.slug}`}>
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: index * 0.1 }}
-        className="sleek-card p-6 group relative overflow-hidden cursor-pointer h-full flex flex-col"
-      >
-        <div className="w-12 h-12 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-sm">
-          <Icon size={24} />
+    <div className="flex-1 p-0 sm:p-0 lg:p-0 grid-bg min-h-screen pt-16 pb-24 md:pb-16">
+      {/* Hero Banner */}
+      <div className="relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0a0f1e 0%, #080b12 60%, #0d1a2e 100%)' }}>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,rgba(6,182,212,0.08),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_20%,rgba(168,85,247,0.06),transparent_50%)]" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
+        
+        <div className="max-w-5xl mx-auto px-6 lg:px-16 pt-8 pb-16">
+          <Link to="/" className="inline-flex items-center gap-2 text-slate-500 hover:text-cyan-400 mb-12 transition-colors font-mono text-xs tracking-widest uppercase">
+            <ArrowLeft size={14} /> Terminal_Principal
+          </Link>
+          
+          <div className="flex items-start gap-8">
+            <div className="relative shrink-0">
+              <div className="absolute inset-0 bg-cyan-500/20 rounded-3xl blur-xl" />
+              <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                <Icon size={36} />
+              </div>
+            </div>
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-4 font-mono text-[10px] text-cyan-400 uppercase tracking-widest">
+                {company.type}
+              </div>
+              <h1 className="text-4xl lg:text-6xl font-black text-white tracking-tight mb-4">{company.name}</h1>
+              <p className="text-lg text-slate-400 leading-relaxed max-w-2xl">{company.fullDescription}</p>
+            </div>
+          </div>
+
+          {/* Highlights — horizontal pills */}
+          <div className="flex flex-wrap gap-2 mt-10">
+            {company.highlights.map((h: string) => (
+              <span key={h} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-800/80 border border-slate-700/50 text-[11px] font-mono font-bold text-slate-300 hover:border-cyan-500/40 hover:text-cyan-400 transition-all">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0" />
+                {h}
+              </span>
+            ))}
+          </div>
         </div>
-        <h3 className="text-xl font-bold text-slate-900 mb-2">{company.name}</h3>
-        <p className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest mb-4">{company.type}</p>
-        <p className="text-sm text-slate-500 leading-relaxed mb-6 flex-1 line-clamp-3">{company.description}</p>
-        <div className="flex items-center gap-2 text-[10px] font-bold text-slate-900 uppercase tracking-widest">
-          Ver detalhes <ChevronRight size={12} className="group-hover:translate-x-1 transition-transform" />
+      </div>
+
+      <div className="max-w-5xl mx-auto px-6 lg:px-16 py-12">
+        <div className="grid lg:grid-cols-[1fr_340px] gap-12">
+          <div>
+
+            {/* Structured Sections (e.g. ZM Digital) */}
+            {company.sections ? (
+              <div className="space-y-12 mb-12">
+                {company.sections.map((section: any) => (
+                  <div key={section.id}>
+                    {/* Section Header */}
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
+                        {section.icon === "Globe" && <ExternalLink size={18} className="text-cyan-400" />}
+                        {section.icon === "Instagram" && <Instagram size={18} className="text-pink-400" />}
+                        {section.icon === "Target" && <Target size={18} className="text-purple-400" />}
+                      </div>
+                      <h3 className="text-xl font-black text-white font-mono uppercase tracking-widest">
+                        {section.title}_
+                        <span className="text-cyan-400 ml-2 text-base">({section.items.length})</span>
+                      </h3>
+                    </div>
+
+                    {/* Sites — card com thumbnail */}
+                    {section.type === "projects" && (
+                      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {section.items.map((item: any) => (
+                          <a key={item.name} href={item.url} target="_blank" rel="noreferrer" className="group">
+                            <div className="glass-card p-4 rounded-xl border border-slate-800/50 hover:border-cyan-500/40 transition-all h-full">
+                              <div className="aspect-video rounded-lg overflow-hidden mb-4 bg-slate-900 border border-slate-800">
+                                <img src={item.image} alt={item.name} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all" />
+                              </div>
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="font-black text-slate-200 group-hover:text-cyan-400 transition-colors">{item.name}</span>
+                                <ArrowUpRight size={14} className="text-slate-500 group-hover:text-cyan-400 transition-colors" />
+                              </div>
+                              <p className="text-[11px] text-slate-500 font-mono">{item.desc}</p>
+                            </div>
+                          </a>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Redes Sociais — pill style com Instagram */}
+                    {section.type === "social" && (
+                      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {section.items.map((item: any) => (
+                          <a key={item.name} href={item.url} target="_blank" rel="noreferrer" className="group">
+                            <div className="glass-card p-5 rounded-xl border border-slate-800/50 hover:border-pink-500/40 transition-all flex items-start gap-4">
+                              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 border border-pink-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                                <Instagram size={18} className="text-pink-400" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center justify-between gap-2 mb-1">
+                                  <span className="font-black text-slate-200 group-hover:text-pink-400 transition-colors text-sm">{item.name}</span>
+                                  <ArrowUpRight size={12} className="text-slate-600 group-hover:text-pink-400 shrink-0 transition-colors" />
+                                </div>
+                                <p className="text-[11px] text-slate-500 leading-relaxed">{item.desc}</p>
+                              </div>
+                            </div>
+                          </a>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Marketing Digital — checklist style */}
+                    {section.type === "services" && (
+                      <div className="grid sm:grid-cols-2 gap-3">
+                        {section.items.map((item: any) => (
+                          <div key={item.name} className="glass-card p-5 rounded-xl border border-slate-800/50 hover:border-purple-500/30 transition-all flex items-start gap-4 group">
+                            <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-110 transition-transform">
+                              <Target size={14} className="text-purple-400" />
+                            </div>
+                            <div>
+                              <p className="font-black text-slate-200 text-sm mb-1 group-hover:text-purple-400 transition-colors">{item.name}</p>
+                              <p className="text-[11px] text-slate-500">{item.desc}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className="border-b border-slate-800/50 mt-10" />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              /* Flat projects grid for other companies (ZM Store Dev, ZM Store) */
+              company.projects && (
+                <div className="mb-12">
+                  <h3 className="text-xl font-black text-white mb-6 font-mono uppercase tracking-widest">Principais Entregas_ <span className="text-cyan-400">({company.projects.length})</span></h3>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {company.projects.map((p: any) => (
+                      <a key={p.name} href={p.url} target="_blank" rel="noreferrer" className="group">
+                        <div className="glass-card p-4 rounded-xl border border-slate-800/50 hover:border-cyan-500/30 transition-all">
+                          <div className="aspect-video rounded-lg overflow-hidden mb-4 bg-slate-900 border border-slate-800">
+                            <img src={p.image} alt={p.name} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all" />
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="font-bold text-slate-200 group-hover:text-cyan-400 transition-colors">{p.name}</span>
+                            <ArrowUpRight size={14} className="text-slate-500" />
+                          </div>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )
+            )}
+            
+            <div className="p-8 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-500/20 text-center">
+              <h3 className="text-2xl font-black text-white mb-4">Pronto para começar seu projeto?</h3>
+              <p className="text-slate-400 mb-8">Solicite um orçamento agora mesmo e transforme sua ideia em realidade.</p>
+              <Link 
+                to={company.slug === 'zm-store-dev' ? '/pedido-app' : '/pedido-marketing'} 
+                className="btn-primary inline-flex items-center gap-2"
+              >
+                <MessageSquare size={18} /> INICIAR_SOLICITAÇÃO
+              </Link>
+            </div>
+          </div>
+
+
+          <aside className="space-y-5">
+            {/* Physical Store card */}
+            {company.physicalInfo && (
+              <div className="rounded-2xl border border-cyan-500/20 overflow-hidden">
+                <div className="bg-gradient-to-r from-cyan-500/10 to-transparent px-6 py-4 border-b border-cyan-500/10 flex items-center gap-3">
+                  <MapPin className="text-cyan-400" size={18} />
+                  <h3 className="text-sm font-black text-white font-mono uppercase tracking-widest">Loja Física</h3>
+                </div>
+                <div className="glass-card p-6 space-y-5">
+                  <div className="flex gap-3">
+                    <MapPin className="text-cyan-400 shrink-0 mt-0.5" size={16} />
+                    <p className="text-sm text-slate-300 leading-relaxed">{company.physicalInfo.address}</p>
+                  </div>
+                  <a href={`tel:${company.physicalInfo.phone}`} className="flex items-center gap-3 group">
+                    <Phone className="text-green-400 shrink-0" size={16} />
+                    <span className="text-sm text-slate-300 font-bold group-hover:text-green-400 transition-colors">{company.physicalInfo.phone}</span>
+                  </a>
+                  <div className="flex items-center gap-3">
+                    <Star className="text-yellow-400 shrink-0" size={16} fill="currentColor" />
+                    <div>
+                      <span className="text-base font-black text-yellow-400">{company.physicalInfo.rating}</span>
+                      <span className="text-xs text-slate-500 ml-2 font-mono">Google Maps</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Clock className="text-cyan-400 shrink-0" size={16} />
+                    <span className="text-xs text-slate-400 font-mono leading-relaxed">{company.physicalInfo.hours}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Official Channels */}
+            <div className="rounded-2xl border border-slate-800 overflow-hidden">
+              <div className="px-6 py-4 border-b border-slate-800 bg-slate-900/50 flex items-center gap-3">
+                <ExternalLink className="text-cyan-400" size={16} />
+                <h3 className="text-sm font-black text-white font-mono uppercase tracking-widest">Canais Oficiais</h3>
+              </div>
+              <div className="glass-card p-4 space-y-2">
+                {company.links?.map((link: any) => {
+                  const style = linkIconColor(link.name);
+                  return (
+                    <a
+                      key={link.name}
+                      href={link.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`flex items-center gap-3 w-full p-3 rounded-xl bg-gradient-to-r ${style.bg} border ${style.border} hover:opacity-90 transition-all group`}
+                    >
+                      <div className={`w-7 h-7 rounded-lg bg-black/20 flex items-center justify-center shrink-0 ${style.text}`}>
+                        {style.icon}
+                      </div>
+                      <span className={`text-xs font-bold ${style.text} flex-1 leading-tight`}>{link.name}</span>
+                      <ArrowUpRight size={13} className={`${style.text} opacity-60 group-hover:opacity-100 transition-opacity`} />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Contact CTA */}
+            <div className="rounded-2xl bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-500/20 p-6 text-center">
+              <p className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-3">Tem interesse?</p>
+              <p className="text-white font-black text-lg mb-5">Vamos trabalhar juntos.</p>
+              <Link
+                to={company.slug === 'zm-store-dev' ? '/pedido-app' : '/pedido-marketing'}
+                className="btn-primary w-full flex items-center justify-center gap-2 text-sm"
+              >
+                <MessageSquare size={16} /> SOLICITAR_ORÇAMENTO
+              </Link>
+            </div>
+          </aside>
         </div>
-      </motion.div>
-    </Link>
+      </div>
+    </div>
+  );
+};
+
+const OrderFormPage = ({ type }: { type: 'app' | 'marketing' }) => {
+  const navigate = useNavigate();
+  
+  const options = type === 'app' ? [
+    "Aplicativo Android Nativo",
+    "Aplicativo iOS / Multiplataforma",
+    "Manutenção / Atualização de App",
+    "Outro Projeto Mobile"
+  ] : [
+    "Site Institucional",
+    "Portal de Notícias / Blog",
+    "E-commerce / Loja Virtual",
+    "Gestão de Tráfego / SEO",
+    "Social Media & Design"
+  ];
+
+  return (
+    <div className="flex-1 p-4 sm:p-8 lg:p-16 grid-bg min-h-screen pt-20 pb-24 md:pb-16">
+      <div className="max-w-3xl mx-auto">
+        <Link to="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-cyan-400 mb-12 transition-colors font-mono text-sm">
+          <ArrowLeft size={16} /> CANCELAR_SOLICITAÇÃO
+        </Link>
+
+        <div className="glass-card p-8 lg:p-12 rounded-3xl border border-slate-800 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-cyan-500/5 to-transparent pointer-events-none" />
+          
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+              {type === 'app' ? <Smartphone size={24} /> : <Target size={24} />}
+            </div>
+            <div>
+              <h1 className="text-3xl font-black text-white">
+                Pedido de {type === 'app' ? 'Desenvolvimento de App' : 'Serviços Digitais'}
+              </h1>
+              <p className="text-slate-400 font-mono text-[10px] uppercase tracking-widest mt-1">Preencha os dados abaixo para orçamento_</p>
+            </div>
+          </div>
+
+          <form className="space-y-8" onSubmit={(e) => { e.preventDefault(); alert('Solicitação enviada com sucesso! Entraremos em contato em breve.'); navigate('/'); }}>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-xs font-mono text-slate-500 uppercase tracking-widest">Seu Nome_</label>
+                <input type="text" required placeholder="Ex: João Silva" className="w-full bg-slate-900/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:border-cyan-500 focus:outline-none transition-all" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-mono text-slate-500 uppercase tracking-widest">E-mail de Contato_</label>
+                <input type="email" required placeholder="joao@exemplo.com" className="w-full bg-slate-900/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:border-cyan-500 focus:outline-none transition-all" />
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <label className="text-xs font-mono text-slate-500 uppercase tracking-widest">Tipo de Serviço_</label>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {options.map(opt => (
+                  <label key={opt} className="flex items-center gap-3 p-4 bg-slate-900/30 border border-slate-800 rounded-xl cursor-pointer hover:border-cyan-500/50 transition-all group">
+                    <input type="radio" name="service" value={opt} className="w-4 h-4 accent-cyan-500" required />
+                    <span className="text-sm text-slate-300 group-hover:text-white transition-colors">{opt}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-mono text-slate-500 uppercase tracking-widest">Descrição do Projeto_</label>
+              <textarea rows={4} required placeholder="Conte um pouco sobre sua ideia, objetivos e funcionalidades principais..." className="w-full bg-slate-900/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:border-cyan-500 focus:outline-none transition-all resize-none" />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-mono text-slate-500 uppercase tracking-widest">Estimativa de Investimento_</label>
+              <select className="w-full bg-slate-900/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:border-cyan-500 focus:outline-none transition-all appearance-none">
+                <option value="low">R$ 1.000 — R$ 5.000</option>
+                <option value="mid">R$ 5.000 — R$ 15.000</option>
+                <option value="high">Acima de R$ 15.000</option>
+                <option value="unsure">Não tenho certeza ainda</option>
+              </select>
+            </div>
+
+            <button type="submit" className="w-full py-4 bg-cyan-500 text-black font-black rounded-xl hover:bg-cyan-400 transition-all shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2 group">
+              ENVIAR_SOLICITAÇÃO <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -249,51 +708,60 @@ const ProjectCard = ({ project, index }: { project: any; index: number; key?: st
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
-      className="sleek-card p-4 group h-full flex flex-col relative"
+      className="project-card flex flex-col group h-full"
     >
-      <div className="aspect-square bg-slate-100 rounded-2xl mb-5 overflow-hidden relative shadow-inner group-hover:shadow-2xl transition-all duration-500">
+      <div className="relative aspect-[16/9] overflow-hidden bg-slate-900">
         <img 
           src={project.image} 
           alt={project.title}
-          className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
-           <div className="flex items-center gap-2 text-white text-[10px] font-bold uppercase tracking-widest translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-             Ver na PlayStore <ExternalLink size={12} />
-           </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
+        
+        <div className="absolute top-4 left-4 flex gap-2">
+          {project.downloads && (
+            <div className="glass-card px-2.5 py-1 rounded-md text-[10px] font-bold text-white flex items-center gap-1">
+              <Download size={10} className="text-cyan-400" /> {project.downloads}
+            </div>
+          )}
+          {project.rating !== "—" && (
+            <div className="glass-card px-2.5 py-1 rounded-md text-[10px] font-bold text-white flex items-center gap-1">
+              <span className="text-yellow-400">★</span> {project.rating}
+            </div>
+          )}
         </div>
-        {project.downloads && (
-          <div className="absolute top-4 left-4 glass-card px-3 py-1.5 rounded-xl text-[10px] font-bold text-slate-900 flex items-center gap-1.5 shadow-sm">
-            <Download size={12} className="text-indigo-600" />
-            {project.downloads}
-          </div>
-        )}
       </div>
-      <div className="px-1 flex-1 flex flex-col">
-        <div className="flex items-start justify-between mb-3">
-          <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-indigo-600 transition-colors leading-tight">
-            {project.title}
-          </h3>
-          <span className="text-[10px] font-black text-indigo-500 px-2 py-1 bg-indigo-50 rounded-lg">{project.rating}★</span>
+      
+      <div className="p-6 flex-1 flex flex-col">
+        <div className="flex items-center justify-between mb-2">
+          <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-400">{project.category} // {project.year}</p>
         </div>
-        <p className="text-xs text-slate-500 mb-6 leading-relaxed line-clamp-3 font-medium opacity-80">
+        <h3 className="text-xl font-black text-white mb-1 group-hover:text-cyan-400 transition-colors">
+          {project.title}
+        </h3>
+        <p className="text-xs font-bold" style={{ color: project.color || '#b054ff' }}>{project.subtitle}</p>
+        
+        <p className="text-sm text-slate-400 mt-4 mb-6 line-clamp-3 leading-relaxed flex-1">
           {project.description}
         </p>
-        <div className="flex flex-wrap gap-1.5 mt-auto">
+        
+        <div className="flex flex-wrap gap-2 mb-6">
           {project.tags.map((tag: string) => (
-            <span key={tag} className="px-2.5 py-1 bg-slate-100/50 border border-slate-200/50 rounded-lg text-[9px] font-bold text-slate-500 flex items-center gap-1.5 transition-colors group-hover:bg-white">
-              <span className="w-1 h-1 rounded-full bg-indigo-500" />
+            <span key={tag} className="tag-chip">
               {tag}
             </span>
           ))}
         </div>
+        
+        <a 
+          href={project.link} 
+          target="_blank" 
+          rel="noreferrer"
+          className="mt-auto flex items-center justify-center gap-2 w-full py-3 bg-slate-800/50 hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-400 rounded-xl text-xs font-mono font-bold transition-all border border-slate-700 hover:border-cyan-500/50"
+        >
+          Acessar Play Store <ExternalLink size={14} />
+        </a>
       </div>
-      <a 
-        href={project.link} 
-        target="_blank" 
-        rel="noreferrer"
-        className="absolute inset-0 z-10"
-      />
     </motion.div>
   );
 };
@@ -302,403 +770,226 @@ const ProjectCard = ({ project, index }: { project: any; index: number; key?: st
 
 const HomePage = () => {
   return (
-    <div className="flex-1 lg:ml-[400px] p-6 lg:p-16">
-      {/* Hero / Welcome */}
-      <section className="mb-24 pt-8 lg:pt-0">
-        <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           animate={{ opacity: 1, y: 0 }}
-           className="max-w-4xl"
-        >
-          <span className="inline-block px-4 py-2 bg-indigo-50 text-indigo-600 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-6 border border-indigo-100/50">Bem-vindo ao meu Portfólio</span>
-          <h2 className="text-5xl lg:text-8xl font-black text-slate-900 tracking-tighter leading-[0.95] mb-10">
-            Transformando ideias em <span className="premium-gradient-text">experiências digitais</span> memoráveis.
-          </h2>
-          <p className="text-xl text-slate-500 leading-relaxed max-w-2xl font-medium">
-            Sou especialista no ecossistema mobile e e-commerce, com foco em resultados reais e tecnologia de ponta para o mercado de Brasília e além.
-          </p>
-        </motion.div>
-      </section>
-
-      <StatsSection />
-
-      {/* Featured Companies */}
-      <section id="empresas" className="mb-24">
-        <div className="flex items-center justify-between mb-10">
-          <div>
-            <h3 className="text-2xl font-black text-slate-900 mb-1">Ecossistema ZM</h3>
-            <p className="text-sm text-slate-500 uppercase tracking-[0.2em] font-bold">Inovação & Varejo</p>
-          </div>
-          <div className="h-px flex-1 mx-8 bg-slate-100 hidden md:block"></div>
-        </div>
-        
-        <div className="grid md:grid-cols-3 gap-8">
-          {COMPANIES.map((company, i) => (
-            <CompanyCard 
-              key={company.name} 
-              company={company} 
-              index={i} 
-            />
-          ))}
-        </div>
-      </section>
-
-      <SkillsSection />
-
-      {/* Services */}
-      <section className="mb-24">
-        <div className="grid md:grid-cols-3 gap-8">
-          {SERVICES.map((service, i) => {
-             const Icon = service.icon === "Smartphone" ? Smartphone :
-                          service.icon === "ShoppingBag" ? ShoppingBag : Target;
-             return (
-               <motion.div
-                 key={service.title}
-                 initial={{ opacity: 0, y: 20 }}
-                 whileInView={{ opacity: 1, y: 0 }}
-                 viewport={{ once: true }}
-                 transition={{ delay: i * 0.1 }}
-                 className="p-10 bg-slate-900 text-white rounded-[2.5rem] relative overflow-hidden group"
-               >
-                 <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-600/10 rounded-bl-full group-hover:scale-150 transition-transform duration-700" />
-                 <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-indigo-400 mb-8 group-hover:bg-indigo-600 group-hover:text-white transition-all">
-                   <Icon size={28} />
-                 </div>
-                 <h4 className="text-2xl font-black mb-4 tracking-tight">{service.title}</h4>
-                 <p className="text-slate-400 leading-relaxed font-medium">{service.description}</p>
-               </motion.div>
-             );
-          })}
-        </div>
-      </section>
-
-      {/* Hero Apps Summary */}
-      <section className="mb-24">
-        <div className="bg-slate-900 rounded-[3rem] p-8 lg:p-16 text-white overflow-hidden relative">
-          <div className="absolute top-0 right-0 w-1/3 h-full bg-indigo-500/10 blur-[100px]" />
-          <div className="relative z-10 max-w-2xl">
-            <h3 className="text-3xl font-bold mb-6">Apps criados recentemente</h3>
-            <p className="text-slate-400 mb-10 text-lg">
-              Conheça alguns dos meus projetos mais recentes publicados na Google Play Store, focados em produtividade e utilitários.
+    <div className="flex-1 p-4 sm:p-8 lg:p-16 grid-bg min-h-screen relative pt-20 pb-24 md:pb-16">
+      <div className="absolute top-0 left-0 right-0 h-96 bg-gradient-to-b from-cyan-500/5 to-transparent pointer-events-none" />
+      
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Hero */}
+        <section className="mb-32 pt-12 lg:pt-20">
+          <motion.div
+             initial={{ opacity: 0, y: 20 }}
+             animate={{ opacity: 1, y: 0 }}
+             className="max-w-4xl"
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-900 border border-slate-800 mb-8 font-mono text-[10px] text-cyan-400 uppercase tracking-widest">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" /> /dev/online · Kotlin · Firebase · React
+            </div>
+            <h2 className="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tight leading-tight lg:leading-[1.1] mb-6 text-white break-words">
+              <span className="gradient-text">9 apps.</span> +15k downloads. <br className="hidden lg:block"/>
+              Código que vai <span className="gradient-text">a produção.</span>
+            </h2>
+            <p className="text-xl text-slate-400 leading-relaxed max-w-2xl font-light mb-10">
+              Android Developer & Full Stack. Fundador do ecossistema ZM — apps nativos em Kotlin, Firebase, MVVM · Sites e portais em React & Next.js. Produtos reais, com arquitetura real.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-               {PROJECTS.slice(0, 2).map((p) => (
-                 <div key={p.id} className="p-4 bg-white/5 rounded-2xl border border-white/10">
-                    <p className="font-bold text-sm mb-1">{p.title}</p>
-                    <p className="text-xs text-slate-400 line-clamp-1">{p.description}</p>
-                 </div>
-               ))}
+            <div className="flex gap-4">
+               <Link to="/apps" className="btn-primary flex items-center gap-2">
+                 Ver Projetos <ArrowUpRight size={18} />
+               </Link>
+               <a href={`https://wa.me/${PERSONAL_INFO.phone.replace(/\D/g,'')}`} target="_blank" rel="noreferrer" className="btn-outline flex items-center gap-2">
+                 <MessageSquare size={18} /> Contato
+               </a>
             </div>
-            <Link to="/apps" className="inline-flex items-center gap-2 font-bold text-indigo-400 hover:text-white transition-colors group">
-              Explorar catálogo completo <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            </Link>
-          </div>
-        </div>
-      </section>
+          </motion.div>
+        </section>
 
-      <section id="contato" className="mb-24">
-        <div className="p-8 lg:p-16 bg-white border border-slate-200 rounded-[3rem] sleek-shadow grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <span className="inline-block px-4 py-2 bg-indigo-50 text-indigo-600 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">Vamos Conversar?</span>
-            <h3 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight">Pronto para elevar seu negócio ao próximo nível?</h3>
-            <p className="text-lg text-slate-500 mb-10 leading-relaxed">
-              Estou à disposição para consultorias, desenvolvimento de projetos sob medida e parcerias estratégicas em Brasília e região.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button 
-                onClick={() => window.open(`https://wa.me/${PERSONAL_INFO.phone.replace(/\D/g,'')}`, '_blank')}
-                className="px-10 py-5 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-slate-900 transition-all shadow-xl shadow-indigo-600/20 active:scale-95 text-center"
-              >
-                Chamar no WhatsApp
-              </button>
-              <button 
-                onClick={() => window.location.href = `mailto:${PERSONAL_INFO.email}`}
-                className="px-10 py-5 bg-white text-slate-900 border border-slate-200 rounded-2xl font-bold hover:bg-slate-50 transition-all text-center"
-              >
-                Enviar E-mail
-              </button>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100 group hover:border-indigo-100 transition-colors">
-              <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-indigo-600 mb-6 shadow-sm group-hover:scale-110 transition-transform">
-                <Target size={24} />
-              </div>
-              <p className="text-2xl font-extrabold text-slate-900 mb-2">Estratégia</p>
-              <p className="text-sm text-slate-500">Desenvolvimento focado em conversão e resultados reais.</p>
-            </div>
-            <div className="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100 group hover:border-indigo-100 transition-colors">
-              <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-indigo-600 mb-6 shadow-sm group-hover:scale-110 transition-transform">
-                <Smartphone size={24} />
-              </div>
-              <p className="text-2xl font-extrabold text-slate-900 mb-2">Mobile</p>
-              <p className="text-sm text-slate-500">Experiências fluidas nas pontas dos dedos dos seus clientes.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+        <StatsSection />
+        <CompaniesSection />
+        <SkillsSection />
 
-      <footer className="pt-12 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center text-[10px] text-slate-400 uppercase tracking-[0.2em] gap-4">
-        <p>© {new Date().getFullYear()} {PERSONAL_INFO.name}</p>
-        <div className="flex gap-8">
-          <Link to="/about" className="hover:text-indigo-600 transition-colors">Carreira</Link>
-          <Link to="/apps" className="hover:text-indigo-600 transition-colors">Aplicativos</Link>
-        </div>
-      </footer>
+        {/* All Apps */}
+        <section className="mb-24">
+          <div className="flex items-center justify-between mb-10">
+             <div className="flex items-center gap-4">
+                <Smartphone className="text-cyan-400" size={24} />
+                <h3 className="text-2xl font-black text-white font-mono uppercase">Catálogo Completo — {PROJECTS.length} Apps</h3>
+             </div>
+             <Link to="/apps" className="text-sm font-mono text-cyan-400 hover:text-cyan-300 flex items-center gap-2">
+               Ver detalhes <ArrowRight size={16} />
+             </Link>
+          </div>
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+             {PROJECTS.map((p, i) => <ProjectCard key={p.id} project={p} index={i} />)}
+          </div>
+        </section>
+
+      </div>
     </div>
   );
 };
 
 const ProjectsPage = () => {
   return (
-    <div className="flex-1 lg:ml-[400px] p-6 lg:p-16 h-full">
-      <section className="mb-16 pt-8 lg:pt-0">
-        <Link to="/" className="inline-flex items-center gap-2 text-sm font-bold text-indigo-600 mb-8 hover:gap-3 transition-all">
-          <ArrowLeft size={16} /> Voltar ao Início
-        </Link>
-        <h2 className="text-5xl font-bold text-slate-900 mb-6">Explorar Store</h2>
-        <p className="text-xl text-slate-500 max-w-2xl leading-relaxed">
-          Catálogo completo de ferramentas e jogos desenvolvidos pela <span className="text-indigo-600 font-bold">ZM Store Desenvolvimentos</span>. Focados em utilidade, entretenimento e performance.
-        </p>
-      </section>
+    <div className="flex-1 p-4 sm:p-8 lg:p-16 grid-bg min-h-screen pt-20 pb-24 md:pb-16">
+      <div className="max-w-7xl mx-auto">
+        <section className="mb-16 pt-8 lg:pt-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-purple-500/10 border border-purple-500/20 mb-6 font-mono text-[10px] text-purple-400 uppercase tracking-widest">
+            <LayoutGrid size={12} /> Ecossistema
+          </div>
+          <h2 className="text-4xl lg:text-5xl font-black text-white mb-6 tracking-tight">Projetos & Aplicações</h2>
+          <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
+            Exploração do catálogo completo desenvolvido pela ZM Store. De ferramentas de produtividade B2B a jogos idle escaláveis.
+          </p>
+        </section>
 
-      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mb-24">
-        {PROJECTS.map((project, i) => (
-          <ProjectCard key={project.id} project={project} index={i} />
-        ))}
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mb-24">
+          {PROJECTS.map((project, i) => (
+            <ProjectCard key={project.id} project={project} index={i} />
+          ))}
+        </div>
+
+        <div className="p-12 rounded-3xl bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-500/20 text-center mb-12">
+          <h3 className="text-3xl font-black text-white mb-4">Tem uma ideia para um App?</h3>
+          <p className="text-slate-400 mb-8 max-w-xl mx-auto">Desenvolvemos aplicativos nativos de alta performance para Android. Vamos transformar sua visão em um produto de sucesso.</p>
+          <Link 
+            to="/pedido-app" 
+            className="btn-primary inline-flex items-center gap-2 px-8 py-4 text-lg"
+          >
+            <MessageSquare size={20} /> INICIAR_PROJETO_MOBILE
+          </Link>
+        </div>
       </div>
-
     </div>
   );
 };
 
 const AboutPage = () => {
   return (
-    <div className="flex-1 lg:ml-[400px] p-6 lg:p-16 h-full">
-      <section className="mb-24 pt-8 lg:pt-0">
-        <Link to="/" className="inline-flex items-center gap-2 text-sm font-bold text-indigo-600 mb-8 hover:gap-3 transition-all">
-          <ArrowLeft size={16} /> Voltar ao Início
-        </Link>
-        <h2 className="text-5xl font-bold text-slate-900 mb-6 tracking-tight">Trajetória Profissional</h2>
-        <p className="text-xl text-slate-500 max-w-2xl leading-relaxed">
-          Construindo uma carreira sólida unindo tecnologia, educação e visão empreendedora ao longo de quase uma década de dedicação.
-        </p>
-      </section>
-
-      <div className="grid lg:grid-cols-2 gap-16 mb-24">
-        {/* Education */}
-        <div>
-          <h3 className="text-2xl font-black text-slate-900 mb-10 flex items-center gap-3">
-            <GraduationCap className="text-indigo-600" size={28} />
-            Educação
-          </h3>
-          <div className="space-y-4">
-            {EDUCATION.map((edu, i) => (
-              <motion.div 
-                key={edu.title}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="p-6 bg-white rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-indigo-500/5 transition-all group"
-              >
-                <div className="flex justify-between items-start mb-2">
-                  <h4 className="font-bold text-slate-900 text-lg group-hover:text-indigo-600 transition-colors">{edu.title}</h4>
-                </div>
-                <p className="text-indigo-600 font-bold text-xs mb-4 uppercase tracking-widest">{edu.institution}</p>
-                <span className="inline-block px-3 py-1 bg-slate-50 rounded-lg text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
-                  {edu.period}
-                </span>
-              </motion.div>
-            ))}
+    <div className="flex-1 p-4 sm:p-8 lg:p-16 grid-bg min-h-screen pt-20 pb-24 md:pb-16">
+      <div className="max-w-5xl mx-auto">
+        <section className="mb-16 pt-8 lg:pt-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-cyan-500/10 border border-cyan-500/20 mb-6 font-mono text-[10px] text-cyan-400 uppercase tracking-widest">
+            <Code2 size={12} /> Perfil Profissional
           </div>
-        </div>
-
-        {/* Experience */}
-        <div>
-          <h3 className="text-2xl font-black text-slate-900 mb-10 flex items-center gap-3">
-            <BriefcaseBusiness className="text-indigo-600" size={28} />
-            Experiência
-          </h3>
-          <div className="space-y-8 border-l-2 border-slate-100 ml-4 pl-8 relative">
-            {EXPERIENCE.map((exp, i) => (
-              <motion.div 
-                key={exp.company}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="relative"
-              >
-                <div className="absolute w-4 h-4 bg-indigo-600 rounded-full -left-[41px] top-1 border-4 border-white shadow-sm" />
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-                   <h4 className="font-black text-slate-900 text-xl">{exp.role}</h4>
-                   <span className="text-[10px] text-indigo-600 font-black bg-indigo-50 px-3 py-1.5 rounded-full uppercase tracking-widest self-start sm:self-auto">{exp.period}</span>
-                </div>
-                <p className="text-sm text-indigo-600 font-bold mb-3 uppercase tracking-widest">{exp.company}</p>
-                <p className="text-sm text-slate-500 leading-relaxed font-medium opacity-80">{exp.description}</p>
-              </motion.div>
-            ))}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-16">
+            <div>
+              <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">Currículo Profissional_</h2>
+              <p className="text-slate-400 font-mono text-sm uppercase tracking-widest">Trajetória, formação e competências técnicas.</p>
+            </div>
+            <a href="#" className="flex items-center gap-3 px-6 py-4 bg-cyan-500 text-black font-black rounded-xl hover:bg-cyan-400 transition-all shadow-lg shadow-cyan-500/20 group">
+              <Download size={20} />
+              BAIXAR_CV.PDF
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </a>
           </div>
-        </div>
-      </div>
 
-    </div>
-  );
-};
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Experience */}
+            <div>
+              <h3 className="text-xl font-black text-white mb-8 font-mono uppercase flex items-center gap-3">
+                <BriefcaseBusiness className="text-cyan-400" size={24} />
+                Experiência_
+              </h3>
+              <div className="space-y-6">
+                {EXPERIENCE.map((exp, i) => (
+                  <motion.div 
+                    key={exp.company}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="glass-card p-6 rounded-2xl border border-slate-800/50 hover:border-cyan-500/30 transition-all relative overflow-hidden group"
+                  >
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-cyan-500/5 to-transparent pointer-events-none" />
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+                      <span className="text-cyan-400 font-mono text-[10px] font-bold tracking-widest px-2 py-1 bg-cyan-500/5 rounded border border-cyan-500/10 w-fit">{exp.period}</span>
+                      <span className="text-[10px] font-mono text-slate-500 font-bold uppercase tracking-widest">{exp.company}</span>
+                    </div>
+                    <h4 className="font-black text-white text-xl mb-1 group-hover:text-cyan-400 transition-colors">{exp.role}</h4>
+                    <p className="text-sm text-slate-400 mb-6 leading-relaxed">{exp.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                       {exp.tech.map(t => (
+                         <span key={t} className="text-[9px] font-mono text-slate-300 bg-slate-900 px-2 py-1 rounded border border-slate-800">{t}</span>
+                       ))}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
 
-
-const CompanyPage = () => {
-  const { slug } = useParams();
-  const navigate = useNavigate();
-  const company = COMPANIES.find(c => c.slug === slug);
-
-  if (!company) {
-    return (
-      <div className="flex-1 lg:ml-[400px] flex items-center justify-center h-screen bg-white">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">Empresa não encontrada</h2>
-          <button onClick={() => navigate("/")} className="text-indigo-600 font-bold flex items-center gap-2 mx-auto">
-            <ArrowLeft size={18} /> Voltar ao Início
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  const Icon = company.icon === "ShoppingBag" ? ShoppingBag : 
-                company.icon === "Smartphone" ? Smartphone : Target;
-
-  const isDev = company.id === "zm-store-dev";
-
-  return (
-    <motion.div 
-      initial={{ opacity: 0, scale: 0.98 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="flex-1 lg:ml-[400px] min-h-screen bg-white relative"
-    >
-      <div className="h-64 lg:h-96 w-full relative overflow-hidden">
-        <img src={company.image} className="w-full h-full object-cover" alt={company.name} />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent" />
-        <button 
-          onClick={() => navigate("/")}
-          className="absolute top-8 left-8 w-12 h-12 rounded-full bg-white shadow-xl flex items-center justify-center text-slate-900 hover:bg-slate-900 hover:text-white transition-all z-20"
-        >
-          <ArrowLeft size={20} />
-        </button>
-      </div>
-
-      <div className="px-6 lg:px-16 py-12 lg:-mt-32 relative z-10">
-        <div className="max-w-5xl mx-auto">
-          <div className="bg-white rounded-[2.5rem] p-8 lg:p-16 shadow-2xl shadow-indigo-900/10 mb-12">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            {/* Education */}
+            <div className="space-y-12">
               <div>
-                <div className="w-20 h-20 rounded-3xl bg-indigo-600 flex items-center justify-center text-white mb-8 shadow-xl shadow-indigo-600/20">
-                  <Icon size={36} />
+                <h3 className="text-xl font-black text-white mb-8 font-mono uppercase flex items-center gap-3">
+                  <GraduationCap className="text-cyan-400" size={24} />
+                  Formação & Cursos_
+                </h3>
+                <div className="space-y-4">
+                  {EDUCATION.map((edu, i) => (
+                    <motion.div 
+                      key={edu.title}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1 }}
+                      className="glass-card p-6 rounded-2xl border border-slate-800/50 hover:border-cyan-500/30 transition-all flex items-start gap-4 group"
+                    >
+                      <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 group-hover:border-cyan-500/30 transition-all">
+                        {edu.icon}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-1">
+                          <h4 className="font-bold text-white text-base group-hover:text-cyan-400 transition-colors">{edu.title}</h4>
+                        </div>
+                        <p className="text-slate-400 font-bold text-xs mb-3">{edu.institution}</p>
+                        <span className="inline-block px-2 py-0.5 bg-slate-800/50 rounded text-[10px] font-mono text-cyan-500 border border-cyan-500/20">
+                          {edu.period}
+                        </span>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
-                <h2 className="text-4xl lg:text-6xl font-bold text-slate-900 mb-4 tracking-tight">{company.name}</h2>
-                <div className="flex flex-wrap gap-3">
-                  <p className="text-indigo-600 font-bold uppercase tracking-[0.2em] text-xs py-2 px-4 bg-indigo-50 rounded-full">{company.type}</p>
-                  {company.highlights.map((h: string) => (
-                    <span key={h} className="px-4 py-2 bg-slate-50 border border-slate-100 rounded-full text-[10px] font-bold text-slate-500 uppercase tracking-widest">{h}</span>
+              </div>
+
+              {/* Skills */}
+              <div>
+                <h3 className="text-xl font-black text-white mb-8 font-mono uppercase flex items-center gap-3">
+                  <Code2 className="text-cyan-400" size={24} />
+                  Competências_
+                </h3>
+                <div className="grid grid-cols-2 gap-4">
+                  {SKILLS.map((skill, i) => (
+                    <motion.div 
+                      key={skill.name}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.05 }}
+                      className="p-4 rounded-xl border border-slate-800/50 bg-slate-900/30"
+                    >
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-xs font-bold text-slate-300">{skill.name}</span>
+                        <span className="text-[10px] font-mono text-cyan-500">{skill.level}%</span>
+                      </div>
+                      <div className="h-1 bg-slate-800 rounded-full overflow-hidden">
+                        <motion.div 
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${skill.level}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1, delay: i * 0.1 }}
+                          className="h-full bg-cyan-500"
+                        />
+                      </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
             </div>
-
-            <div>
-              <div className="prose prose-slate max-w-none">
-                <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
-                  História e Propósito
-                  <div className="h-px flex-1 bg-slate-100"></div>
-                </h3>
-                <p className="text-slate-600 leading-relaxed text-xl mb-12">
-                  {company.fullDescription}
-                </p>
-              </div>
-              
-              {isDev && (
-                <div className="mt-16">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-10 flex items-center gap-3">
-                    Catálogo de Produtos Digitais
-                    <div className="h-px flex-1 bg-slate-100"></div>
-                  </h3>
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {PROJECTS.map((app) => (
-                      <div key={app.id} className="group relative">
-                        <div className="aspect-video bg-slate-100 rounded-3xl mb-6 overflow-hidden shadow-sm ring-1 ring-slate-100">
-                          <img src={app.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={app.title} />
-                        </div>
-                        <h4 className="text-xl font-bold text-slate-900 mb-2">{app.title}</h4>
-                        <p className="text-sm text-slate-500 mb-6 line-clamp-2 leading-relaxed">{app.description}</p>
-                        <a 
-                          href={app.link} 
-                          target="_blank" 
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-2xl text-xs font-bold uppercase tracking-widest hover:bg-indigo-600 transition-all shadow-lg shadow-slate-900/10"
-                        >
-                          Google Play <ExternalLink size={14} />
-                        </a>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {company.projects && (
-                <div className="mt-16">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-10 flex items-center gap-3">
-                    Sites Desenvolvidos
-                    <div className="h-px flex-1 bg-slate-100"></div>
-                  </h3>
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {company.projects.map((p: any) => (
-                      <div key={p.name} className="group relative">
-                        <div className="aspect-video bg-slate-100 rounded-3xl mb-6 overflow-hidden shadow-sm ring-1 ring-slate-100">
-                          <img src={p.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={p.name} />
-                        </div>
-                        <h4 className="text-xl font-bold text-slate-900 mb-2">{p.name}</h4>
-                        <a 
-                          href={p.url} 
-                          target="_blank" 
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-2 text-indigo-600 text-sm font-bold hover:gap-3 transition-all"
-                        >
-                          Visitar Site <ArrowUpRight size={16} />
-                        </a>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {company.links && (
-                 <div className="mt-24 pt-12 border-t border-slate-100 flex flex-col items-center">
-                    <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-8">Acesse agora</p>
-                    <div className="flex flex-wrap gap-4 justify-center">
-                      {company.links.map((link: any) => (
-                        <a 
-                          key={link.name}
-                          href={link.url} 
-                          target="_blank" 
-                          rel="noreferrer"
-                          className="flex items-center gap-4 px-10 py-5 bg-indigo-600 text-white rounded-2xl hover:bg-slate-900 transition-all group shadow-xl shadow-indigo-600/20"
-                        >
-                          <span className="font-bold uppercase tracking-widest">{link.name}</span>
-                          <ArrowUpRight size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                        </a>
-                      ))}
-                    </div>
-                 </div>
-              )}
-            </div>
           </div>
-        </div>
+        </section>
       </div>
-    </motion.div>
+    </div>
   );
 };
-
 
 // --- Main App ---
 
@@ -707,18 +998,19 @@ export default function App() {
     <Router>
       <ScrollToHash />
       <Analytics />
-      <div className="flex flex-col lg:flex-row min-h-screen bg-slate-50 relative selection:bg-indigo-500 selection:text-white">
-        {/* Abstract Background Elements */}
-        <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-indigo-500/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-        <div className="fixed bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/5 blur-[120px] rounded-full translate-y-1/2 -translate-x-1/2 pointer-events-none" />
-        
-        <Sidebar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/apps" element={<ProjectsPage />} />
-          <Route path="/sobre" element={<AboutPage />} />
-          <Route path="/company/:slug" element={<CompanyPage />} />
-        </Routes>
+      <div className="min-h-screen bg-[#080b12] text-slate-200">
+        <Navbar />
+        {/* Added pt-16 for desktop header and pb-16 for mobile bottom bar */}
+        <div className="pt-16 pb-[64px] md:pb-0">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/apps" element={<ProjectsPage />} />
+            <Route path="/sobre" element={<AboutPage />} />
+            <Route path="/empresa/:slug" element={<CompanyPage />} />
+            <Route path="/pedido-app" element={<OrderFormPage type="app" />} />
+            <Route path="/pedido-marketing" element={<OrderFormPage type="marketing" />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );
