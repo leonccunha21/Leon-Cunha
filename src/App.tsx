@@ -775,28 +775,55 @@ const HomePage = () => {
       
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Hero */}
-        <section className="mb-32 pt-12 lg:pt-20">
+        <section className="mb-24 pt-12 lg:pt-20">
           <motion.div
              initial={{ opacity: 0, y: 20 }}
              animate={{ opacity: 1, y: 0 }}
              className="max-w-4xl"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-900 border border-slate-800 mb-8 font-mono text-[10px] text-cyan-400 uppercase tracking-widest">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" /> /dev/online · Kotlin · Firebase · React
+            {/* Tech Status Pill */}
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-lg bg-black/50 border border-slate-800 shadow-[0_0_15px_rgba(0,229,255,0.1)] mb-8 font-mono text-[11px] text-cyan-400 uppercase tracking-widest backdrop-blur-md">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+              </span>
+              SYS.STATUS // DEVELOPER_ONLINE
             </div>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-4 text-white max-w-3xl">
+
+            {/* Main Title */}
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] mb-6 text-white max-w-3xl">
               Transformando ideias em <br className="hidden sm:block"/>
-              <span className="gradient-text">experiências digitais memoráveis.</span>
+              <span className="gradient-text">experiências digitais memoráveis</span>
+              <span className="animate-pulse text-cyan-500 ml-1">_</span>
             </h2>
-            <p className="text-lg text-slate-400 leading-relaxed max-w-2xl font-light mb-8">
-              Desenvolvedor Android & Full Stack. Crio aplicativos móveis e plataformas web com foco em performance e resultados reais.
-            </p>
-            <div className="flex gap-4">
-               <Link to="/apps" className="btn-primary flex items-center gap-2">
-                 Ver Projetos <ArrowUpRight size={18} />
+
+            {/* Description as a terminal block */}
+            <div className="max-w-2xl bg-[#0d1117]/80 border border-slate-800 rounded-xl p-5 mb-10 font-mono text-sm shadow-xl backdrop-blur-sm">
+              <div className="flex gap-2 mb-3">
+                <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50"></div>
+              </div>
+              <p className="text-slate-400 leading-relaxed">
+                <span className="text-purple-400">const</span> <span className="text-blue-400">developer</span> = {'{'}
+                <br/>
+                &nbsp;&nbsp;role: <span className="text-green-400">"Android & Full Stack"</span>,
+                <br/>
+                &nbsp;&nbsp;focus: <span className="text-green-400">"Performance & Resultados"</span>,
+                <br/>
+                &nbsp;&nbsp;frameworks: [<span className="text-green-400">"Kotlin"</span>, <span className="text-green-400">"React"</span>, <span className="text-green-400">"Node.js"</span>]
+                <br/>
+                {'}'};
+              </p>
+            </div>
+
+            {/* Tech Buttons */}
+            <div className="flex flex-wrap gap-4">
+               <Link to="/apps" className="btn-primary flex items-center gap-2 font-mono text-xs uppercase tracking-wider group">
+                 <Terminal size={16} /> ./ver_projetos.sh
                </Link>
-               <a href={`https://wa.me/${PERSONAL_INFO.phone.replace(/\D/g,'')}`} target="_blank" rel="noreferrer" className="btn-outline flex items-center gap-2">
-                 <MessageSquare size={18} /> Contato
+               <a href={`https://wa.me/${PERSONAL_INFO.phone.replace(/\D/g,'')}`} target="_blank" rel="noreferrer" className="glass-card hover:bg-slate-800 flex items-center gap-2 px-6 py-3 rounded-xl text-white font-mono text-xs uppercase tracking-wider border border-slate-700 hover:border-cyan-500/50 transition-all">
+                 <Code2 size={16} className="text-cyan-400" /> &lt;Contato /&gt;
                </a>
             </div>
           </motion.div>
