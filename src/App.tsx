@@ -886,93 +886,22 @@ const HomePage = () => {
              animate={{ opacity: 1, y: 0 }}
              className="max-w-4xl"
           >
-            {/* Tech Status Pill */}
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-lg bg-black/50 border border-slate-800 shadow-[0_0_15px_rgba(0,229,255,0.1)] mb-8 font-mono text-[11px] text-cyan-400 uppercase tracking-widest backdrop-blur-md">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-              </span>
-              SYS.STATUS // DEVELOPER_ONLINE
-            </div>
+            <h1 className="text-5xl lg:text-7xl font-black text-white mb-6 tracking-tight leading-[1.1]">
+               Leonardo <span className="gradient-text">Cunha</span>
+            </h1>
+            <p className="text-lg text-slate-400 leading-relaxed mb-10 max-w-2xl">
+              Desenvolvedor Android Nativo & Full Stack. Especialista em criar soluções mobile escaláveis e ecossistemas digitais de alta performance.
+            </p>
 
-            {/* Main Title */}
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] mb-6 text-white max-w-3xl">
-              Transformando ideias em <br className="hidden sm:block"/>
-              <span className="gradient-text">experiências digitais memoráveis</span>
-              <span className="animate-pulse text-cyan-500 ml-1">_</span>
-            </h2>
-
-            {/* Description as a terminal block */}
-            <div className="max-w-2xl bg-[#0d1117]/80 border border-slate-800 rounded-xl p-5 mb-10 font-mono text-sm shadow-xl backdrop-blur-sm">
-              <div className="flex gap-2 mb-3">
-                <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50"></div>
-              </div>
-              <p className="text-slate-400 leading-relaxed">
-                <span className="text-purple-400">const</span> <span className="text-blue-400">developer</span> = {'{'}
-                <br/>
-                &nbsp;&nbsp;role: <span className="text-green-400">"Android & Full Stack"</span>,
-                <br/>
-                &nbsp;&nbsp;focus: <span className="text-green-400">"IA & Performance"</span>,
-                <br/>
-                &nbsp;&nbsp;frameworks: [<span className="text-green-400">"Kotlin"</span>, <span className="text-green-400">"React"</span>, <span className="text-green-400">"Firebase"</span>]
-                <br/>
-                {'}'};
-              </p>
-              
-              <div className="mt-6 pt-6 border-t border-slate-800/50 space-y-2 font-mono text-[10px] tracking-tight">
-                <div className="flex items-center gap-2 text-cyan-500/70">
-                  <span className="shrink-0">[SYSTEM]</span>
-                  <span className="text-slate-500">Iniciando análise de métricas...</span>
-                </div>
-                <div className="flex items-center gap-2 text-green-500/70">
-                  <span className="shrink-0">[OK]</span>
-                  <span className="text-slate-300">Garagem HotDeck: <span className="text-white font-bold">15k+ downloads</span> ativos</span>
-                </div>
-                <div className="flex items-center gap-2 text-green-500/70">
-                  <span className="shrink-0">[OK]</span>
-                  <span className="text-slate-300">Catálogo: <span className="text-white font-bold">9 apps</span> publicados e monitorados</span>
-                </div>
-                <div className="flex items-center gap-2 text-purple-500/70">
-                  <span className="shrink-0">[AI]</span>
-                  <span className="text-slate-300">Integração <span className="text-white font-bold">Google AI SDK</span> operando nominalmente</span>
-                </div>
-                <div className="flex items-center gap-2 animate-pulse">
-                   <span className="text-cyan-500">_</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Ecosystem Command Menu */}
-            <div className="flex flex-wrap gap-3">
-               {COMPANIES.map((company) => (
-                 <Link 
-                   key={company.id}
-                   to={`/empresa/${company.slug}`} 
-                   className="glass-card hover:bg-slate-800 flex items-center gap-2 px-5 py-3 rounded-xl text-white font-mono text-[11px] uppercase tracking-wider border border-slate-700 hover:border-cyan-500/50 transition-all group"
-                 >
-                   <Folder size={14} className="text-cyan-500/50 group-hover:text-cyan-400" />
-                   <span className="text-slate-400 group-hover:text-white">cd ./</span>
-                   <span className="font-bold">{company.slug.replace(/-/g, '_')}</span>
-                 </Link>
-               ))}
-               
-               <Link to="/sobre" className="glass-card hover:bg-slate-800 flex items-center gap-2 px-5 py-3 rounded-xl text-white font-mono text-[11px] uppercase tracking-wider border border-slate-700 hover:border-purple-500/50 transition-all group">
-                 <User size={14} className="text-purple-500/50 group-hover:text-purple-400" />
-                 <span className="text-slate-400 group-hover:text-white">cat ./</span>
-                 <span className="font-bold text-purple-400">sobre_mim.md</span>
-               </Link>
-
-               <a href={`https://wa.me/${PERSONAL_INFO.phone.replace(/\D/g,'')}`} target="_blank" rel="noreferrer" className="bg-cyan-500/10 hover:bg-cyan-500/20 flex items-center gap-2 px-5 py-3 rounded-xl text-cyan-400 font-mono text-[11px] uppercase tracking-wider border border-cyan-500/30 hover:border-cyan-500/50 transition-all group">
-                 <MessageSquare size={14} className="group-hover:scale-110 transition-transform" />
-                 <span className="font-bold">./falar_com_leo.sh</span>
-               </a>
+            <div className="flex flex-wrap gap-4">
+              <Link to="/apps" className="btn-primary flex items-center gap-2">
+                 Ver Projetos <ArrowRight size={18} />
+              </Link>
+              <Link to="/sobre" className="btn-outline">Conhecer Trajetória</Link>
             </div>
           </motion.div>
         </section>
 
-        <CompaniesSection />
         <StatsSection />
         <ActivitySection />
         <SkillsSection />
