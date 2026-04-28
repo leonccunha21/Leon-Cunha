@@ -986,7 +986,6 @@ const HomePage = () => {
         <CompaniesSection />
         <StatsSection />
         <ActivitySection />
-        <ShowcaseSection />
         <SkillsSection />
         <TestimonialsSection />
 
