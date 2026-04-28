@@ -971,18 +971,6 @@ const HomePage = () => {
                    <span className="text-slate-500 group-hover:text-slate-300">cat ./</span>
                    <span className="font-bold text-purple-400 group-hover:text-purple-300">sobre_mim.md</span>
                  </Link>
-
-                 <a 
-                   href={`https://wa.me/${PERSONAL_INFO.phone.replace(/\D/g,'')}`} 
-                   target="_blank" 
-                   rel="noreferrer"
-                   onMouseEnter={() => setHoveredInfo("Entre em contato direto via WhatsApp para parcerias ou orçamentos.")}
-                   onMouseLeave={() => setHoveredInfo(null)}
-                   className="bg-cyan-500/5 hover:bg-cyan-500/10 flex items-center gap-2 px-5 py-3 rounded-xl text-cyan-400 font-mono text-[11px] uppercase tracking-wider border border-cyan-500/20 hover:border-cyan-500/50 transition-all group"
-                 >
-                   <MessageSquare size={14} className="text-cyan-500/50 group-hover:scale-110 transition-all" />
-                   <span className="font-bold">./falar_com_leo.sh</span>
-                 </a>
               </div>
 
               {/* Dynamic Description Block */}
